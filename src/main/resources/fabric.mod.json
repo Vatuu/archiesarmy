@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "archiesarmy",
+  "version": "${version}",
+  "name": "Archie's Army",
+  "authors": [
+    "Vatuu"
+  ],
+  "license": "CC0-1.0",
+  "icon": "assets/archiesarmy/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.vatuu.archiesarmy.ArchiesArmy"
+    ],
+    "client": [
+      "dev.vatuu.archiesarmy.client.ArchiesArmyClient"
+    ]
+  },
+  "mixins": [
+    "archiesarmy.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.8.7+build.201",
+    "fabric": "*",
+    "minecraft": "1.16-rc.9"
+  }
+}

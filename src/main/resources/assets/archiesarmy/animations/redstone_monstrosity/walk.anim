@@ -1,0 +1,1185 @@
+{
+    "framecount": 7,
+    "data": [
+        {
+            "frame": 0,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "1",
+                            "z": "4"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "4"
+                        }
+                    }
+                },
+                {
+                    "bone": "hips",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-4"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "body",
+                    "data": {
+                        "rotation": {
+                            "pitch": "5",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "jaw",
+                    "data": {
+                        "rotation": {
+                            "pitch": "7",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-30",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-20"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-20"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "20"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "4"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "20"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "15"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-15"
+                        }
+                    }
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        },
+        {
+            "frame": 12,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {}
+                },
+                {
+                    "bone": "hips",
+                    "data": {
+                        "translation": {
+                            "x": "0",
+                            "y": "1",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "5",
+                            "z": "5"
+                        }
+                    }
+                },
+                {
+                    "bone": "body",
+                    "data": {}
+                },
+                {
+                    "bone": "jaw",
+                    "data": {}
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-20",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {}
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-15",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {}
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        },
+        {
+            "frame": 16,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "1",
+                            "z": "12"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-7",
+                            "yaw": "4",
+                            "roll": "8"
+                        }
+                    }
+                },
+                {
+                    "bone": "hips",
+                    "data": {}
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-45",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "4",
+                            "z": "-2"
+                        }
+                    }
+                },
+                {
+                    "bone": "body",
+                    "data": {}
+                },
+                {
+                    "bone": "jaw",
+                    "data": {
+                        "rotation": {
+                            "pitch": "14",
+                            "yaw": "0",
+                            "roll": "8"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-30",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-15",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-20",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {}
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-20",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {}
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        },
+        {
+            "frame": 20,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "1",
+                            "z": "9"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {}
+                },
+                {
+                    "bone": "hips",
+                    "data": {
+                        "translation": {
+                            "x": "0",
+                            "y": "2",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "3.000000000000001",
+                            "z": "-12"
+                        }
+                    }
+                },
+                {
+                    "bone": "body",
+                    "data": {}
+                },
+                {
+                    "bone": "jaw",
+                    "data": {}
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-20",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-15",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-25"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-20"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "30"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "20"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "25"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "-35"
+                        }
+                    }
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        },
+        {
+            "frame": 24,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "1",
+                            "z": "4"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "4"
+                        }
+                    }
+                },
+                {
+                    "bone": "hips",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-4"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "body",
+                    "data": {}
+                },
+                {
+                    "bone": "jaw",
+                    "data": {
+                        "rotation": {
+                            "pitch": "7",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-30",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-20"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-20"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "20"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "0",
+                            "z": "4"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "20"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "15"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-15"
+                        }
+                    }
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        },
+        {
+            "frame": 4,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-27",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "5",
+                            "z": "-1"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {}
+                },
+                {
+                    "bone": "hips",
+                    "data": {}
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {}
+                },
+                {
+                    "bone": "body",
+                    "data": {}
+                },
+                {
+                    "bone": "jaw",
+                    "data": {}
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {}
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {}
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {}
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {}
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-25",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {}
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "5"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "-25"
+                        }
+                    }
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        },
+        {
+            "frame": 8,
+            "bones": [
+                {
+                    "bone": "leftLeg",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-7",
+                            "yaw": "0",
+                            "roll": "0"
+                        },
+                        "translation": {
+                            "x": "0",
+                            "y": "1",
+                            "z": "-13"
+                        }
+                    }
+                },
+                {
+                    "bone": "head",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "-6",
+                            "roll": "-6"
+                        }
+                    }
+                },
+                {
+                    "bone": "hips",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "4.33"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightLeg",
+                    "data": {}
+                },
+                {
+                    "bone": "body",
+                    "data": {}
+                },
+                {
+                    "bone": "jaw",
+                    "data": {
+                        "rotation": {
+                            "pitch": "14",
+                            "yaw": "0",
+                            "roll": "-7"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-10",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-15",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger1",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-5"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger2",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "-10"
+                        }
+                    }
+                },
+                {
+                    "bone": "rightFinger3",
+                    "data": {
+                        "rotation": {
+                            "pitch": "0",
+                            "yaw": "0",
+                            "roll": "5"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftShoulder",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-25",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftArm",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-15",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftHand",
+                    "data": {
+                        "rotation": {
+                            "pitch": "-5",
+                            "yaw": "0",
+                            "roll": "0"
+                        }
+                    }
+                },
+                {
+                    "bone": "leftFinger1",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger2",
+                    "data": {}
+                },
+                {
+                    "bone": "leftFinger3",
+                    "data": {}
+                },
+                {
+                    "bone": "root",
+                    "data": {}
+                },
+                {
+                    "bone": "eyes",
+                    "data": {}
+                }
+            ]
+        }
+    ]
+}

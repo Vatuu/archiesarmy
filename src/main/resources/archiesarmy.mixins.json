@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "dev.vatuu.archiesarmy.animation.client.extensions.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "ModelPartMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
