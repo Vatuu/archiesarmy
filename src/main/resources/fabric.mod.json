@@ -18,7 +18,9 @@
     ]
   },
   "mixins": [
-    "archiesarmy.mixins.json"
+    "archiesarmy.mixins.json",
+    "archiesarmy.mixins.client.json",
+    "archiesarmy.mixins.animation.json"
   ],
   "depends": {
     "fabricloader": ">=0.8.7+build.201",

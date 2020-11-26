@@ -1,0 +1,34 @@
+{
+  "entity.archiesarmy.illagers.enchanter.idle": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/idle_1"}, {"name":  "archiesarmy:illagers/enchanter/idle_2"}, {"name":  "archiesarmy:illagers/enchanter/idle_3"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.idle"
+  },
+  "entity.archiesarmy.illagers.enchanter.preattack": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/preattack_1"}, {"name":  "archiesarmy:illagers/enchanter/preattack_2"}, {"name":  "archiesarmy:illagers/enchanter/preattack_3"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.preattack"
+  },
+  "entity.archiesarmy.illagers.enchanter.attack": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/attack_1"}, {"name":  "archiesarmy:illagers/enchanter/attack_2"}, {"name":  "archiesarmy:illagers/enchanter/attack_3"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.attack"
+  },
+  "entity.archiesarmy.illagers.enchanter.hurt": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/hurt_1"}, {"name":  "archiesarmy:illagers/enchanter/hurt_2"}, {"name":  "archiesarmy:illagers/enchanter/hurt_3"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.hurt"
+  },
+  "entity.archiesarmy.illagers.enchanter.death": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/death_1"}, {"name":  "archiesarmy:illagers/enchanter/death_2"}, {"name":  "archiesarmy:illagers/enchanter/death_3"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.death"
+  },
+  "entity.archiesarmy.illagers.enchanter.spell": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/spell_1"}, {"name":  "archiesarmy:illagers/enchanter/spell_2"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.spell"
+  },
+  "entity.archiesarmy.illagers.enchanter.beam": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/beam"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.beam"
+  },
+  "entity.archiesarmy.illagers.enchanter.beam_loop": {
+    "sounds": [ {"name":  "archiesarmy:illagers/enchanter/beam_loop"} ],
+    "subtitle": "subtitles.archiesarmy.entities.illagers.enchanter.beam_loop"
+  }
+}

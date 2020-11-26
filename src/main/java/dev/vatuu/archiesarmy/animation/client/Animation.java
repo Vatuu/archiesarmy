@@ -28,7 +28,7 @@ public final class Animation {
     private final AnimatableModel<?> model;
 
     private int keyframeCount;
-    private List<Keyframe> keyframes = new ArrayList<>();
+    private final List<Keyframe> keyframes = new ArrayList<>();
 
     public Animation(Identifier location, AnimatableModel<?> model) {
         this.location = location;
@@ -49,7 +49,7 @@ public final class Animation {
                     ex.printStackTrace();
                 }
             });
-            Collections.sort(keyframes, Comparator.comparingInt(Keyframe::getTimeStamp));
+            keyframes.sort(Comparator.comparingInt(Keyframe::getTimeStamp));
             fixAnimationData();
         }catch(IOException e ) {
             e.printStackTrace();
@@ -66,8 +66,8 @@ public final class Animation {
             int l = i;
             frame.getData().forEach((mp, data) -> {
                 if(l == 0) {
-                    lastApplicableRotation.put(mp, frame);
-                    lastApplicableTranslation.put(mp, frame);
+                    lastApplicableRotation.put(mp, keyframes.get(keyframeCount - 1));
+                    lastApplicableTranslation.put(mp, keyframes.get(keyframeCount - 1));
                     nextApplicableRotation.put(mp, findNextApplicable(l, mp, false));
                     nextApplicableTranslation.put(mp, findNextApplicable(l, mp, true));
                     if(!data.hasRotation) {
@@ -79,8 +79,8 @@ public final class Animation {
                 } else if(l == keyframeCount - 1) {
                     lastApplicableRotation.put(mp, findLastApplicable(l, mp, false));
                     lastApplicableTranslation.put(mp, findLastApplicable(l, mp, true));
-                    nextApplicableRotation.put(mp, keyframes.get(0));
-                    nextApplicableTranslation.put(mp, keyframes.get(0));
+                    nextApplicableRotation.put(mp, findNextApplicable(0, mp, false));
+                    nextApplicableTranslation.put(mp, findNextApplicable(0, mp, true));
                     if(!data.hasRotation) {
                         data.pitch = mp.pitch; data.yaw = mp.yaw; data.roll = mp.roll;
                         data.hasRotation = true;
@@ -102,12 +102,12 @@ public final class Animation {
     private Keyframe findLastApplicable(int index, ModelPart part, boolean translation) {
         List<Keyframe> previous = Lists.reverse(keyframes.subList(0, index + 1));
         Keyframe ret = previous.get(0);
-        for (int i = 0; i < previous.size(); i++) {
-            if(!translation && previous.get(i).getData().get(part).hasRotation) {
-                ret = previous.get(i);
+        for (Keyframe keyframe : previous) {
+            if (!translation && keyframe.getData().get(part).hasRotation) {
+                ret = keyframe;
                 break;
-            } else if(translation && previous.get(i).getData().get(part).hasTranslation) {
-                ret = previous.get(i);
+            } else if (translation && keyframe.getData().get(part).hasTranslation) {
+                ret = keyframe;
                 break;
             }
         }
@@ -117,12 +117,12 @@ public final class Animation {
     private Keyframe findNextApplicable(int index, ModelPart part, boolean translation) {
         List<Keyframe> next = keyframes.subList(index + 1, keyframeCount);
         Keyframe ret = next.get(next.size() - 1);
-        for (int i = 0; i < next.size(); i++) {
-            if(!translation && next.get(i).getData().get(part).hasRotation) {
-                ret = next.get(i);
+        for (Keyframe keyframe : next) {
+            if (!translation && keyframe.getData().get(part).hasRotation) {
+                ret = keyframe;
                 break;
-            } else if(translation && next.get(i).getData().get(part).hasTranslation) {
-                ret = next.get(i);
+            } else if (translation && keyframe.getData().get(part).hasTranslation) {
+                ret = keyframe;
                 break;
             }
         }
@@ -151,6 +151,7 @@ public final class Animation {
             float x = MathHelper.lerp(interpolation, lastApplicableData.transX, nextApplicableData.transX);
             float y = MathHelper.lerp(interpolation, lastApplicableData.transY, nextApplicableData.transY);
             float z = MathHelper.lerp(interpolation, lastApplicableData.transZ, nextApplicableData.transZ);
+            //System.out.printf("X %f | Y %f | Z %f || X %f | Y %f | Z %f || Tick %d | Frame %d%n", x, y, z, pitch, yaw, roll, tickcount, last.getTimeStamp());
             ((ModelPartExtension)mp).setTranslation(new Vector3f(x, y, z));
         });
     }

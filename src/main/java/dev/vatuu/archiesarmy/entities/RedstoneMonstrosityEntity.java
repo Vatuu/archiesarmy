@@ -41,7 +41,7 @@ public class RedstoneMonstrosityEntity extends HostileEntity {
         if(!this.world.isClient) {
             TesseractComponent comp = TesseractComponent.get(this);
             if(comp.getCurrentAnimation() == null) {
-                comp.startAnimation(ANIMATION_WALK, 24, true);
+                comp.startAnimation(ANIMATION_WALK, 24, false);
             }
         }
     }

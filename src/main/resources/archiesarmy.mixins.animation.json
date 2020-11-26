@@ -1,9 +1,9 @@
 {
   "required": true,
-  "package": "dev.vatuu.archiesarmy.extensions.mixins",
+  "package": "dev.vatuu.archiesarmy.animation.client.extensions.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
-    "MobEntityMixin"
+  "client": [
+    "ModelPartMixin"
   ],
   "injectors": {
     "defaultRequire": 1
