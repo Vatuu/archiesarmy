@@ -15,7 +15,7 @@ The game content added from other Minecraft games.
 Content from Mojang's recent Dungeon Crawler.
 #### Entities
 - The Enchanter Illager
-  - A Illager which prefers their tomes over the Vindicator's axe. They uses his enchantment prowess to enchant and enhance hostile mobs and sent them towards their target.
+  - A Illager which prefers their tomes over the Vindicator's axe. They uses their enchantment prowess to enchant and enhance hostile mobs and sent them towards their target.
   - Can enchant Skeletons, Creepers and Zombies, 3 entities at a time.
   - Flees from the player, but is able to fight back with a hearty slap of his book when cornered.
 - The Redstone Monstrosity (WIP)
