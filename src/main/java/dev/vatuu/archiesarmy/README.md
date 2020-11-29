@@ -4,7 +4,7 @@ A Minecraft Mod developed to bring parity between the existing Minecraft games, 
 
 ## Technical Content
 - Loading, rendering and processing of Bedrock Entity Models through Resource Data(minecraft:geometry).
-- Loading, applying, playing and overlaying Bedrock Entity Model Animations through Resource Data.
+- Loading, applying, playing and overlaying Bedrock Entity Model Animations through Resource Data. Still WIP.
 - A abstract Spell system for Illagers to easily add different functionality and spells to their AI.
 - Mob Enchantment. Additional mob flag which, when given to a mob, increases speed, damage/effectiveness, health, defense and adds a more menacing appearance.
 
