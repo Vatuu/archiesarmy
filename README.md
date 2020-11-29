@@ -15,17 +15,17 @@ The game content added from other Minecraft games.
 Content from Mojang's recent Dungeon Crawler.
 #### Entities
 - The Enchanter Illager
-  - A Illager that prefers his tomes over the Vindicator's axe. He uses his enchantment prowess to enchant and enhance hostile mobs and sent them towards their target.
-  - Can enchant Skeletons, Creepers and Zombies.
-  - Flees from the player, but is able to fight back with a hearty slap of his book.
+  - A Illager which prefers their tomes over the Vindicator's axe. They uses his enchantment prowess to enchant and enhance hostile mobs and sent them towards their target.
+  - Can enchant Skeletons, Creepers and Zombies, 3 entities at a time.
+  - Flees from the player, but is able to fight back with a hearty slap of his book when cornered.
 - The Redstone Monstrosity (WIP)
-  - A towering construct created by the Arch Illager to destroy any and all resistance in one quick action. It's flaming hot attacks melt and sometimes animated even stone.
+  - A towering construct once created by the Arch Illager to destroy any and all resistance in one quick action. It's flaming hot attacks melt and sometimes animated even stone. It is now long abandoned, who knows where it rests.
   - A Boss Mob spawning in a specific area of the Nether, guarding a shard of the Orb of Dominance.
   - Can attack physicially, cause shockwaves so knockback and damage the player, spew molten stone and summon minions.
   
 #### World Generation
 - The Fiery Forge (WIP)
-  - The home of the Redstone Monstrosity. A massive abandoned complex filled with forgers, smelteries, broken machinery and insidious traps. Supposedly the resting place of a piece of the Orb of Dominance as well.
+  - The home of the Redstone Monstrosity. A massive abandoned complex filled with forges, smelteries, broken machinery and insidious traps. Supposedly the resting place of a piece of the Orb of Dominance as well.
   - Randomly generated structure, themed around metalwork. Spawns in the Nether. Houses the Redstone Monstrosity as boss, which rewards a OOD Shard.
   
 #### Miscellanious
