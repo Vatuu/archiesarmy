@@ -46,14 +46,14 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
         super.readCustomDataFromTag(tag);
         enchantingEntities.clear();
         ListTag list = tag.getList("Enchanting", 0);
-        list.forEach(u -> enchantingEntities.add(NbtHelper.toUuidNew(u)));
+        list.forEach(u -> enchantingEntities.add(NbtHelper.toUuid(u)));
     }
 
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
         ListTag enchanting = new ListTag();
         for (int i = 0; i < enchantingEntities.size(); i++)
-            enchanting.addTag(i, NbtHelper.fromUuidNew(enchantingEntities.get(i)));
+            enchanting.addTag(i, NbtHelper.fromUuid(enchantingEntities.get(i)));
         tag.put("Enchanting", enchanting);
     }
 

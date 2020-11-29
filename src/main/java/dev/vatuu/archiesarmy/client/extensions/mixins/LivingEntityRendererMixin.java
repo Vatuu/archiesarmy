@@ -15,8 +15,6 @@ import net.minecraft.entity.mob.MobEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
-import sun.security.provider.certpath.Vertex;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements FeatureRendererContext<T, M> {
@@ -29,12 +27,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
     public void renderEntity(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
         if(livingEntity instanceof MobEntity && ((MobEntityExt)livingEntity).isEnchanted()) {
             matrixStack.scale(1.2F, 1.2F, 1.2F);
-            matrixStack.translate(0, -livingEntity.getHeight() * .2F, 0);
+            matrixStack.translate(0, -livingEntity.getHeight() * .15F, 0);
         }
     }
-
-    /*@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/Model;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;IIFFFF)V"))
-    public void changeModelRenderer(Args args) {
-        //args.set();
-    }*/
 }

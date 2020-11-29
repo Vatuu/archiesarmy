@@ -23,8 +23,7 @@ public class EnchantmentEffectFeatureRenderer<T extends MobEntity, M extends Ent
         this.model = model;
         if(model instanceof BipedEntityModel) {
             BipedEntityModel overlay = (BipedEntityModel)model;
-            overlay.helmet.visible = overlay.rightArm.mirror = overlay.rightLeg.mirror = false;
-            //overlay.textureHeight = overlay.textureWidth =  256;
+            overlay.helmet.visible = overlay.leftArm.mirror = overlay.leftLeg.mirror = false;
         }
     }
 

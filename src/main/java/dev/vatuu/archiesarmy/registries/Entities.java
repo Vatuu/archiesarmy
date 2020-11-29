@@ -2,6 +2,7 @@ package dev.vatuu.archiesarmy.registries;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.animation.AnimationManager;
+import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
 import dev.vatuu.archiesarmy.entities.RedstoneMonstrosityEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -34,10 +35,19 @@ public final class Entities {
                     .build()
     );
 
+    public static final EntityType<ArchIllagerEntity> TYPE_ARCHIE = Registry.register(
+            Registry.ENTITY_TYPE,
+            ArchiesArmy.id("archie"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ArchIllagerEntity::new)
+                    .dimensions(EntityDimensions.fixed(1.0F, 1.0F))
+                    .build()
+    );
+
     public static void registerEntityAttributes() {
         FabricDefaultAttributeRegistry.register(TYPE_REDSTONE_MONSTROSITY, RedstoneMonstrosityEntity.createAttributes());
         AnimationManager.INSTANCE.register(TYPE_REDSTONE_MONSTROSITY, RedstoneMonstrosityEntity.ANIMATION_WALK, RedstoneMonstrosityEntity.ANIMATION_AWAKEN);
 
         FabricDefaultAttributeRegistry.register(TYPE_ENCHANTER, EnchanterEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(TYPE_ARCHIE, ArchIllagerEntity.createAttributes());
     }
 }

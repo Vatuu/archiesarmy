@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "LivingEntityRendererMixin",
-    "ZombieEntityRendererMixin"
+    "ZombieEntityRendererMixin",
+    "SkeletonEntityRendererMixin",
+    "CreeperEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
