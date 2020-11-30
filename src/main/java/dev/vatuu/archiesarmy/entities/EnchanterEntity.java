@@ -1,6 +1,7 @@
 package dev.vatuu.archiesarmy.entities;
 
 import com.google.common.collect.ImmutableSet;
+import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.registries.Spells;
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
@@ -93,7 +95,22 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
     public void onDeath(DamageSource source) {
         super.onDeath(source);
-        //TODO Un-enchant entities
+        ServerWorld w = (ServerWorld)getEntityWorld();
+        enchantingEntities.forEach(u -> {
+            Entity e = w.getEntity(u);
+            if(!(e == null || !e.isAlive()) && e instanceof MobEntity)
+                ((MobEntityExt)e).setEnchanted(false);
+        });
+    }
+
+    @Override
+    protected void mobTick() {
+        super.mobTick();
+        ServerWorld w = (ServerWorld)getEntityWorld();
+        enchantingEntities.removeIf(u -> {
+            Entity e = w.getEntity(u);
+            return e == null || !e.isAlive();
+        });
     }
 
     public void addBonusForWave(int wave, boolean unused) { }
