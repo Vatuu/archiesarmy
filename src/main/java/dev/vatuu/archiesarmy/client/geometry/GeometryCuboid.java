@@ -88,6 +88,13 @@ public final class GeometryCuboid {
             Vector3f normal = f.normal.copy();
             normal.transform(normalMatrix);
 
+            if (normal.getX() < 0)
+                normal.multiplyComponentwise(-1, 1, 1);
+            if (normal.getY() < 0)
+                normal.multiplyComponentwise(1, -1, 1);
+            if (normal.getZ() < 0)
+                normal.multiplyComponentwise(1, 1, -1);
+
             Stream.of(f.vertices).forEach(v -> {
                 float x = (float)v.pos.getX() / 16.0F;
                 float y = (float)v.pos.getY() / 16.0F;
