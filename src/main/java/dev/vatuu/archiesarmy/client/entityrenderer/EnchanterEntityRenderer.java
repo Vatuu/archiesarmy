@@ -1,14 +1,10 @@
 package dev.vatuu.archiesarmy.client.entityrenderer;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.geometry.entityrenderer.GeometryLivingEntityRenderer;
-import dev.vatuu.archiesarmy.client.models.ArchieEntityModel;
+import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.GeometryLivingEntityRenderer;
 import dev.vatuu.archiesarmy.client.models.EnchanterEntityModel;
-import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 

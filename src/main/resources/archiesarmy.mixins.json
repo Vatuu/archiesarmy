@@ -3,7 +3,8 @@
   "package": "dev.vatuu.archiesarmy.extensions.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MobEntityMixin"
+    "MobEntityMixin",
+    "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

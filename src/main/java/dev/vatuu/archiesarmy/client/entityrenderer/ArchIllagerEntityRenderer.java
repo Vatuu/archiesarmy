@@ -1,13 +1,15 @@
 package dev.vatuu.archiesarmy.client.entityrenderer;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.geometry.entityrenderer.GeometryLivingEntityRenderer;
+import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.AnimatableEntityRenderer;
+import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.GeometryLivingEntityRenderer;
 import dev.vatuu.archiesarmy.client.models.ArchieEntityModel;
 import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 
-public class ArchIllagerEntityRenderer extends GeometryLivingEntityRenderer<ArchIllagerEntity, ArchieEntityModel> {
+public class ArchIllagerEntityRenderer extends AnimatableEntityRenderer<ArchIllagerEntity, ArchieEntityModel> {
 
     private static final Identifier TEXTURE = ArchiesArmy.id("textures/entities/illagers/arch_illager.png");
 
@@ -16,12 +18,12 @@ public class ArchIllagerEntityRenderer extends GeometryLivingEntityRenderer<Arch
     }
 
     @Override
-    public Identifier getTexture(ArchIllagerEntity entity) {
-        return TEXTURE;
+    protected boolean hasLabel(ArchIllagerEntity livingEntity) {
+        return false;
     }
 
     @Override
-    protected boolean hasLabel(ArchIllagerEntity livingEntity) {
-        return false;
+    public Identifier getTexture(ArchIllagerEntity entity) {
+        return TEXTURE;
     }
 }

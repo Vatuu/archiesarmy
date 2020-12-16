@@ -1,11 +1,9 @@
 package dev.vatuu.archiesarmy.client.models;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.geometry.models.EntityGeometryModel;
+import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.VindicatorEntityRenderer;
-import net.minecraft.client.render.entity.model.IllagerEntityModel;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 

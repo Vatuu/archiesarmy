@@ -13,16 +13,16 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ArchIllagerEntity extends HostileEntity {
+public class MinionEntity extends HostileEntity{
 
-    public ArchIllagerEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public MinionEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3499999940395355D)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 100.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D);
     }
 
@@ -34,9 +34,10 @@ public class ArchIllagerEntity extends HostileEntity {
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if(!((EntityExt)this).getServerAnimationData().isEmpty()) {
-            ((EntityExt)this).removeAnimation(ArchiesArmy.id("animations/entities/arch_illager.animation"), false);
+            ((EntityExt)this).removeAnimation(ArchiesArmy.id("animations/entities/minion.animation"), false);
         } else
-            ((EntityExt)this).addAnimation(ArchiesArmy.id("animations/entities/arch_illager.animation"), false);
+            ((EntityExt)this).addAnimation(ArchiesArmy.id("animations/entities/minion.animation"), false);
+
         return ActionResult.SUCCESS;
     }
 }
