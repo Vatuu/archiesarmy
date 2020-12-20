@@ -1,8 +1,15 @@
 package dev.vatuu.archiesarmy.client.bedrock.animation;
 
-import com.google.gson.*;
-import dev.vatuu.archiesarmy.util.Transformation;
 import net.minecraft.client.util.math.Vector3f;
+
+import dev.vatuu.archiesarmy.util.Transformation;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;

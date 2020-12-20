@@ -1,14 +1,14 @@
 package dev.vatuu.archiesarmy.client.features;
 
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 
 public class EnchantmentGlowFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>>  extends FeatureRenderer<T, M> {
 

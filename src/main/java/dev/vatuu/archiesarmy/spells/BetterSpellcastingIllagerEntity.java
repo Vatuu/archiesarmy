@@ -2,8 +2,8 @@ package dev.vatuu.archiesarmy.spells;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandler;

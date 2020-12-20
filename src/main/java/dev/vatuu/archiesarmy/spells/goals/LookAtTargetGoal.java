@@ -1,9 +1,9 @@
 package dev.vatuu.archiesarmy.spells.goals;
 
+import net.minecraft.entity.ai.goal.Goal;
+
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
 import dev.vatuu.archiesarmy.spells.SpellRegistry;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.SpellcastingIllagerEntity;
 
 import java.util.EnumSet;
 

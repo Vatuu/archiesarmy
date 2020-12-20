@@ -1,22 +1,22 @@
 package dev.vatuu.archiesarmy.client.extensions.mixins;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
-import net.minecraft.client.render.entity.BipedEntityRenderer;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.SkeletonEntityRenderer;
-import net.minecraft.client.render.entity.model.SkeletonEntityModel;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
-import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import net.minecraft.client.render.entity.BipedEntityRenderer;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.SkeletonEntityRenderer;
+import net.minecraft.client.render.entity.model.SkeletonEntityModel;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
+import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
+import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 
 @Mixin(SkeletonEntityRenderer.class)
 public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<AbstractSkeletonEntity, SkeletonEntityModel<AbstractSkeletonEntity>> {

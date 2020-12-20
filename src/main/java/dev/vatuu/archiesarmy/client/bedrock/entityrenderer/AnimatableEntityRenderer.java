@@ -1,11 +1,5 @@
 package dev.vatuu.archiesarmy.client.bedrock.entityrenderer;
 
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
-import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
-import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
-import dev.vatuu.archiesarmy.client.network.PacketC2SLoopAnimation;
-import dev.vatuu.archiesarmy.client.network.PacketC2SRemoveAnimation;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -18,6 +12,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
+import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
+import dev.vatuu.archiesarmy.client.network.PacketC2SLoopAnimation;
+import dev.vatuu.archiesarmy.client.network.PacketC2SRemoveAnimation;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
 
 import java.util.HashMap;
 import java.util.Map;

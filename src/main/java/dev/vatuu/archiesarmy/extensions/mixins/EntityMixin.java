@@ -1,23 +1,10 @@
 package dev.vatuu.archiesarmy.extensions.mixins;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
-import dev.vatuu.archiesarmy.network.PacketS2CAnimationControl;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
-import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.fabricmc.fabric.api.util.NbtType;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.CommandOutput;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Nameable;
-import org.jetbrains.annotations.Nullable;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,8 +12,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.CommandOutput;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Nameable;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
+import dev.vatuu.archiesarmy.network.PacketS2CAnimationControl;
+import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import org.jetbrains.annotations.Nullable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements EntityExt, Nameable, CommandOutput {

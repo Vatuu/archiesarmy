@@ -1,12 +1,13 @@
 package dev.vatuu.archiesarmy.network;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
 
 public class PacketS2CAnimationControl implements AbstractPacket {
 

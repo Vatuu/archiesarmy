@@ -3,10 +3,8 @@
   "package": "dev.vatuu.archiesarmy.client.extensions.mixins",
   "compatibilityLevel": "JAVA_8",
   "client": [
-    "LivingEntityRendererMixin",
-    "ZombieEntityRendererMixin",
-    "SkeletonEntityRendererMixin",
-    "CreeperEntityRendererMixin"
+    "CreeperEntityRendererMixin", "LivingEntityRendererMixin", "SkeletonEntityRendererMixin",
+    "ZombieEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

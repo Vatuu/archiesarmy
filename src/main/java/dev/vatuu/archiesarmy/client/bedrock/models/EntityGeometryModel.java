@@ -3,7 +3,6 @@ package dev.vatuu.archiesarmy.client.bedrock.models;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 import java.util.function.Function;
 

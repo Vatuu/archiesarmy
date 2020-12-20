@@ -1,8 +1,9 @@
 package dev.vatuu.archiesarmy.spells;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
 
 public abstract class Spell<T extends BetterSpellcastingIllagerEntity> {
 

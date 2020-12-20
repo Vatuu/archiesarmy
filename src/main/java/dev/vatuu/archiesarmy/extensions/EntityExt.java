@@ -1,10 +1,12 @@
 package dev.vatuu.archiesarmy.extensions;
 
-import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
 public interface EntityExt {
 

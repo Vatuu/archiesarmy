@@ -1,15 +1,17 @@
 package dev.vatuu.archiesarmy.registries;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
-import dev.vatuu.archiesarmy.entities.MinionEntity;
-import dev.vatuu.archiesarmy.entities.EnchanterEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.Registry;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
+import dev.vatuu.archiesarmy.entities.EnchanterEntity;
+import dev.vatuu.archiesarmy.entities.MinionEntity;
 
 public final class Entities {
 

@@ -1,14 +1,13 @@
 package dev.vatuu.archiesarmy.client.network;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
-import dev.vatuu.archiesarmy.network.AbstractPacket;
-import dev.vatuu.archiesarmy.network.NetworkHandler;
-import dev.vatuu.archiesarmy.network.PacketS2CAnimationControl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
+import dev.vatuu.archiesarmy.network.AbstractPacket;
 
 public class PacketC2SLoopAnimation implements AbstractPacket {
 

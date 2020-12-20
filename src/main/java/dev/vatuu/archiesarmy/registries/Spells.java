@@ -1,10 +1,11 @@
 package dev.vatuu.archiesarmy.registries;
 
+import net.minecraft.util.registry.Registry;
+
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
 import dev.vatuu.archiesarmy.entities.spells.EnchantingSpell;
 import dev.vatuu.archiesarmy.spells.Spell;
 import dev.vatuu.archiesarmy.spells.SpellRegistry;
-import net.minecraft.util.registry.Registry;
 
 public class Spells {
 

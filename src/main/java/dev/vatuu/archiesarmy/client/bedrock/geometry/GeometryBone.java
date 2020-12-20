@@ -1,16 +1,20 @@
 package dev.vatuu.archiesarmy.client.bedrock.geometry;
 
-import com.google.gson.*;
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.util.math.Quaternion;
 
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class GeometryBone {
 

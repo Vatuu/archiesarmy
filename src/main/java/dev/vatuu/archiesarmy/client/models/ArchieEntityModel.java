@@ -1,10 +1,11 @@
 package dev.vatuu.archiesarmy.client.models;
 
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Identifier;
+
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
 import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.util.Identifier;
 
 public class ArchieEntityModel extends EntityGeometryModel<ArchIllagerEntity> {
 

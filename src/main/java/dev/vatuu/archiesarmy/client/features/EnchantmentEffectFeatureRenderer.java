@@ -1,6 +1,5 @@
 package dev.vatuu.archiesarmy.client.features;
 
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -12,6 +11,8 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 
 public class EnchantmentEffectFeatureRenderer<T extends MobEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 

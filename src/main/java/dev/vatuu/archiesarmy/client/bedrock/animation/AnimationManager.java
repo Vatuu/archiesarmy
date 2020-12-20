@@ -1,18 +1,20 @@
 package dev.vatuu.archiesarmy.client.bedrock.animation;
 
-import com.google.common.collect.Lists;
-import com.google.gson.JsonParseException;
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.crash.CrashReportSection;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.common.collect.Lists;
+import com.google.gson.JsonParseException;
 import java.util.HashMap;
 import java.util.Map;
 

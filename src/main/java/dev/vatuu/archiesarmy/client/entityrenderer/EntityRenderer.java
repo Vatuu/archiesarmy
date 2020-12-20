@@ -1,12 +1,13 @@
 package dev.vatuu.archiesarmy.client.entityrenderer;
 
-import dev.vatuu.archiesarmy.client.models.ArchieEntityModel;
-import dev.vatuu.archiesarmy.client.models.MinionEntityModel;
-import dev.vatuu.archiesarmy.client.models.EnchanterEntityModel;
-import dev.vatuu.archiesarmy.registries.Entities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+
+import dev.vatuu.archiesarmy.client.models.ArchieEntityModel;
+import dev.vatuu.archiesarmy.client.models.EnchanterEntityModel;
+import dev.vatuu.archiesarmy.client.models.MinionEntityModel;
+import dev.vatuu.archiesarmy.registries.Entities;
 
 @Environment(EnvType.CLIENT)
 public final class EntityRenderer {

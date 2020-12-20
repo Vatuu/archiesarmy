@@ -1,26 +1,21 @@
 package dev.vatuu.archiesarmy.entities;
 
-import com.google.common.collect.ImmutableSet;
-
-import dev.vatuu.archiesarmy.entities.spells.EnchantingSpell;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
-import dev.vatuu.archiesarmy.registries.Sounds;
-import dev.vatuu.archiesarmy.registries.Spells;
-import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
-import dev.vatuu.archiesarmy.spells.Spell;
-import dev.vatuu.archiesarmy.spells.goals.CastSpellGoal;
-import dev.vatuu.archiesarmy.spells.goals.LookAtTargetGoal;
-import dev.vatuu.archiesarmy.spells.goals.LookAtTargetOrEnchantingTargetGoal;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -29,11 +24,17 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
+import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.registries.Sounds;
+import dev.vatuu.archiesarmy.registries.Spells;
+import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
+import dev.vatuu.archiesarmy.spells.goals.CastSpellGoal;
+import dev.vatuu.archiesarmy.spells.goals.LookAtTargetOrEnchantingTargetGoal;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 

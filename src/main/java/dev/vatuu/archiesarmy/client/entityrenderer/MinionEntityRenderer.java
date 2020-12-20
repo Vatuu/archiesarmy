@@ -1,11 +1,12 @@
 package dev.vatuu.archiesarmy.client.entityrenderer;
 
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.util.Identifier;
+
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.AnimatableEntityRenderer;
 import dev.vatuu.archiesarmy.client.models.MinionEntityModel;
 import dev.vatuu.archiesarmy.entities.MinionEntity;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.util.Identifier;
 
 public class MinionEntityRenderer extends AnimatableEntityRenderer<MinionEntity, MinionEntityModel> {
 

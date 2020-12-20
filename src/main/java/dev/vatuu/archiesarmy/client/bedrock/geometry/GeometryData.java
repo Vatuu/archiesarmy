@@ -1,14 +1,20 @@
 package dev.vatuu.archiesarmy.client.bedrock.geometry;
 
-import com.google.common.collect.Lists;
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+
+import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.stream.JsonReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;

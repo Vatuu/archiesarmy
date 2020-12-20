@@ -1,6 +1,5 @@
 package dev.vatuu.archiesarmy.client.bedrock.entityrenderer;
 
-import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -20,6 +19,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+
+import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
 
 public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M extends EntityGeometryModel<T>> extends EntityRenderer<T> {
 

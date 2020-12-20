@@ -1,11 +1,12 @@
 package dev.vatuu.archiesarmy.client.bedrock.models;
 
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
-import dev.vatuu.archiesarmy.client.bedrock.geometry.GeometryData;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+import dev.vatuu.archiesarmy.client.bedrock.geometry.GeometryData;
 
 import java.util.function.Function;
 

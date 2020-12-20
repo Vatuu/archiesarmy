@@ -1,16 +1,17 @@
 package dev.vatuu.archiesarmy.entities.spells;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.entities.EnchanterEntity;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
-import dev.vatuu.archiesarmy.registries.Sounds;
-import dev.vatuu.archiesarmy.spells.Spell;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.entities.EnchanterEntity;
+import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.registries.Sounds;
+import dev.vatuu.archiesarmy.spells.Spell;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.List;

@@ -1,13 +1,15 @@
 package dev.vatuu.archiesarmy;
 
+import net.fabricmc.api.ModInitializer;
+
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
 import dev.vatuu.archiesarmy.network.NetworkHandler;
 import dev.vatuu.archiesarmy.registries.Entities;
 import dev.vatuu.archiesarmy.registries.Items;
 import dev.vatuu.archiesarmy.registries.Spells;
 import dev.vatuu.archiesarmy.spells.SpellRegistry;
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ArchiesArmy implements ModInitializer {
 

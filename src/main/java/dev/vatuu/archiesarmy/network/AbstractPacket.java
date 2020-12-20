@@ -1,8 +1,8 @@
 package dev.vatuu.archiesarmy.network;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
+
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 

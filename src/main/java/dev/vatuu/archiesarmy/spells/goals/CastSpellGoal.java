@@ -1,9 +1,10 @@
 package dev.vatuu.archiesarmy.spells.goals;
 
-import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
-import dev.vatuu.archiesarmy.spells.Spell;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.sound.SoundEvent;
+
+import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
+import dev.vatuu.archiesarmy.spells.Spell;
 
 public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Goal {
 

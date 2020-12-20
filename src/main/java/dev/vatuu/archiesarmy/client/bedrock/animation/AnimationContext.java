@@ -1,14 +1,15 @@
 package dev.vatuu.archiesarmy.client.bedrock.animation;
 
-import com.google.common.collect.Lists;
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
-import dev.vatuu.archiesarmy.client.bedrock.models.GeometryModel;
-import dev.vatuu.archiesarmy.util.Transformation;
-import dev.vatuu.archiesarmy.util.Tuple;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+import dev.vatuu.archiesarmy.client.bedrock.models.GeometryModel;
+import dev.vatuu.archiesarmy.util.Transformation;
+import dev.vatuu.archiesarmy.util.Tuple;
+
+import com.google.common.collect.Lists;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
