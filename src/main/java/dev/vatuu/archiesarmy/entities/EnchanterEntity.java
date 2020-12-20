@@ -1,6 +1,8 @@
 package dev.vatuu.archiesarmy.entities;
 
 import com.google.common.collect.ImmutableSet;
+
+import dev.vatuu.archiesarmy.entities.spells.EnchantingSpell;
 import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.registries.Spells;
@@ -8,6 +10,9 @@ import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
 import dev.vatuu.archiesarmy.spells.Spell;
 import dev.vatuu.archiesarmy.spells.goals.CastSpellGoal;
 import dev.vatuu.archiesarmy.spells.goals.LookAtTargetGoal;
+import dev.vatuu.archiesarmy.spells.goals.LookAtTargetOrEnchantingTargetGoal;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -15,6 +20,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -25,12 +31,14 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Predicate;
 
 public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
     public final List<UUID> enchantingEntities = new ArrayList<>();
+    public LivingEntity enchantingTarget;
 
     public EnchanterEntity(EntityType<EnchanterEntity> type, World world) {
         super(type, world);
@@ -59,22 +67,16 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
         tag.put("Enchanting", enchanting);
     }
 
-    private static final ImmutableSet<EntityType<?>> ENHANCEABLE_ENTITIES = ImmutableSet.of(EntityType.ZOMBIE, EntityType.CREEPER, EntityType.SKELETON);
-    private final Predicate<LivingEntity> ENCHANTER_TARGET_PREDICATE = livingEntity ->
-            ENHANCEABLE_ENTITIES.stream().anyMatch(t -> t.equals(livingEntity.getType()) &&
-            !enchantingEntities.contains(livingEntity.getUuid()));
-
     protected void initGoals() {
         super.initGoals();
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new LookAtTargetGoal(this));
+        this.goalSelector.add(1, new LookAtTargetOrEnchantingTargetGoal(this));
         this.goalSelector.add(2, new FleeEntityGoal<>(this, PlayerEntity.class, 8.0F, 0.6D, 1.0D));
         this.goalSelector.add(3, new CastSpellGoal<>(this, Spells.ENCHANTING));
         this.goalSelector.add(4, new WanderAroundGoal(this, 0.6d));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.add(6, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
 
-        this.targetSelector.add(0, (new FollowTargetGoal<>(this, MobEntity.class, 0, false, false, ENCHANTER_TARGET_PREDICATE)).setMaxTimeWithoutVisibility(100));
         this.targetSelector.add(1, (new FollowTargetGoal<>(this, PlayerEntity.class, false)).setMaxTimeWithoutVisibility(100));
     }
 
@@ -121,4 +123,21 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
     protected SoundEvent getHurtSound(DamageSource source) { return Sounds.ENTITY_ENCHANTER_HURT; }
     public SoundEvent getCastPrepareSound() { return Sounds.ENTITY_ENCHANTER_PREATTACK; }
     public SoundEvent getCastSpellSound() { return Sounds.ENTITY_ENCHANTER_SPELL; }
+
+    public boolean canEnchant() {
+        return enchantingEntities.size() < 3;
+    }
+
+    public void enchant(LivingEntity target) {
+        this.enchantingEntities.add(target.getUuid());
+        ((MobEntityExt) target).setEnchanted(true);
+    }
+
+    public LivingEntity getEnchantingTarget() {
+        return enchantingTarget;
+    }
+
+    public void setEnchantingTarget(@Nullable LivingEntity target) {
+        this.enchantingTarget = target;
+    }
 }

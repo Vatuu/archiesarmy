@@ -2,6 +2,7 @@ package dev.vatuu.archiesarmy;
 
 import dev.vatuu.archiesarmy.network.NetworkHandler;
 import dev.vatuu.archiesarmy.registries.Entities;
+import dev.vatuu.archiesarmy.registries.Items;
 import dev.vatuu.archiesarmy.registries.Spells;
 import dev.vatuu.archiesarmy.spells.SpellRegistry;
 import net.fabricmc.api.ModInitializer;
@@ -23,7 +24,7 @@ public class ArchiesArmy implements ModInitializer {
         Registry.register((Registry<Registry<?>>)Registry.REGISTRIES, SpellRegistry.REGISTRY_KEY.getValue(), SpellRegistry.REGISTRY);
         Spells.init();
         networkHandler = new NetworkHandler();
-
+        Items.init();
     }
 
     public static Identifier id(String name) {

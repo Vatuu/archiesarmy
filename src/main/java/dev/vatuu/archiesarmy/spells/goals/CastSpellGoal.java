@@ -9,7 +9,7 @@ public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Go
 
     private final T entity;
     private final Spell<T> spell;
-    private int spellWarmup, nextCast;
+    private int spellCooldown, startTime;
 
     public CastSpellGoal(T entity, Spell<T> spell) {
         this.entity = entity;
@@ -20,30 +20,31 @@ public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Go
     public boolean canStart() {
         if(entity.isSpellcasting())
             return false;
-        if(entity.age < nextCast)
+        if(entity.age < startTime)
             return false;
         return spell.canStart(entity);
     }
 
     @Override
     public boolean shouldContinue() {
-        return this.spellWarmup >= 0 && spell.canContinue(entity);
+        return this.spellCooldown > 0 && spell.shouldContinue(entity);
     }
 
     @Override
     public void start() {
-        entity.setSpell(spell);
-        entity.spellTicks = spell.getCastTime() + spell.getWarmupTime();
-        this.spellWarmup = spell.getWarmupTime();
-        this.nextCast = entity.age + (spell.getNextCastTime() + spell.getWarmupTime() + spell.getCastTime());
+        entity.spellTicks = getSpell().getSpellTicks();
+        this.spellCooldown = getSpell().getInitialCooldown();
+        this.startTime = entity.age + getSpell().getStartTimeDelay();
         SoundEvent soundEvent = entity.getCastPrepareSound();
         if (soundEvent != null)
             entity.playSound(soundEvent, 1.0F, 1.0F);
+        entity.setSpell(getSpell());
     }
 
     @Override
     public void tick() {
-        if (this.spellWarmup == 0) {
+        --this.spellCooldown;
+        if (this.spellCooldown == 0) {
             spell.castSpell(entity);
             SoundEvent soundEvent = entity.getCastSpellSound();
             if (soundEvent != null)
@@ -52,7 +53,14 @@ public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Go
             if(soundEvent != null)
                 entity.playSound(soundEvent, 1.0F, 1.0F);
         }
+    }
 
-        this.spellWarmup--;
+    @Override
+    public void stop() {
+        spell.stop(entity);
+    }
+
+    public Spell<T> getSpell() {
+        return spell;
     }
 }
