@@ -14,12 +14,12 @@ The game content added from other Minecraft games.
 ### Minecraft Dungeons
 Content from Mojang Studios' recent Dungeon Crawler.
 #### Entities
-- The Enchanter Illager
-  - A Illager which prefers their tomes over the Vindicator's axe. They use their enchantment prowess to enhance hostile mobs and send them towards their target.
+- The Enchanter
+  - An Illager who prefers their tomes over the Vindicator's axe. They use their enchantment prowess to enhance hostile mobs and send them towards their target.
   - Can enchant up to 3 entities at once. Zombies, Creepers, and Skeletons.
-  - Flees from the player, but is able to fight back with a hearty slap of his book when cornered.
+  - Flees from the player, but is able to fight back with a hearty slap of their book when cornered.
 - The Redstone Monstrosity (WIP)
-  - A towering construct once created by the Arch Illager to destroy any and all resistance in one quick action. Its flaming hot attacks melt and sometimes animated even stone. It is now long abandoned, who knows where it rests.
+  - A towering construct once created by the Arch Illager to destroy any and all resistance in one quick action. Its flaming hot attacks melt, and sometimes even animate, stone. It is now long abandoned, who knows where it rests?
   - A Boss Mob spawning in a specific area of the Nether, guarding a shard of the Orb of Dominance.
   - Can attack physically, causing shockwaves that knock back and damage the player, spew molten stone and summon minions.
   
