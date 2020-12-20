@@ -1,5 +1,6 @@
 package dev.vatuu.archiesarmy.entities;
 
+import dev.vatuu.archiesarmy.spells.goals.LookAtTargetGoal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityGroup;
@@ -29,7 +30,6 @@ import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.registries.Spells;
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
 import dev.vatuu.archiesarmy.spells.goals.CastSpellGoal;
-import dev.vatuu.archiesarmy.spells.goals.LookAtTargetOrEnchantingTargetGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -140,5 +140,21 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
     public void setEnchantingTarget(@Nullable LivingEntity target) {
         this.enchantingTarget = target;
+    }
+
+    private static class LookAtTargetOrEnchantingTargetGoal extends LookAtTargetGoal {
+
+        EnchanterEntity entity;
+
+        public LookAtTargetOrEnchantingTargetGoal(EnchanterEntity entity) {
+            super(entity);
+            this.entity = entity;
+        }
+
+        public void tick() {
+            if (entity.getEnchantingTarget() != null) {
+                entity.getLookControl().lookAt(entity.getEnchantingTarget(), (float)entity.getBodyYawSpeed(), (float)entity.getLookPitchSpeed());
+            } else super.tick();
+        }
     }
 }
