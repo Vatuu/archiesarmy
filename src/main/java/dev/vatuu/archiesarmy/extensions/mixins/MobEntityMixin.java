@@ -5,6 +5,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -29,7 +31,7 @@ public abstract class MobEntityMixin extends LivingEntity implements MobEntityEx
 
     @Inject(method = "initDataTracker()V", at = @At("TAIL"))
     public void injectDataTracker(CallbackInfo ci) {
-        if(isEnchantable()) this.dataTracker.startTracking(ENCHANTED, false);
+        if(this.isEnchantable()) this.dataTracker.startTracking(ENCHANTED, false);
     }
 
     @Override
@@ -39,26 +41,28 @@ public abstract class MobEntityMixin extends LivingEntity implements MobEntityEx
 
     @Override
     public void setEnchanted(boolean enchanted) {
-        if(isEnchantable()) this.dataTracker.set(ENCHANTED, enchanted);
+        if(this.isEnchantable()) this.dataTracker.set(ENCHANTED, enchanted);
     }
 
     @Override
     public boolean isEnchanted() {
-        return isEnchantable() && this.dataTracker.get(ENCHANTED);
+        return this.isEnchantable() && this.dataTracker.get(ENCHANTED);
     }
 
     @Override
-    public float getScaleFactor() {
-        return super.getScaleFactor() * (isEnchanted() ? 1.2F : 1.0F);
+    public EntityDimensions getDimensions(EntityPose pose) {
+        EntityDimensions dimensions = super.getDimensions(pose);
+        if(isEnchanted()) dimensions = dimensions.scaled(this.getEnchantedScale());
+        return dimensions;
     }
 
     @Inject(method = "writeCustomDataToTag(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     public void injectWriteTagData(CompoundTag tag, CallbackInfo ci) {
-        if(isEnchantable()) tag.putBoolean("Enchanted", this.isEnchanted());
+        if(this.isEnchantable()) tag.putBoolean("Enchanted", this.isEnchanted());
     }
 
     @Inject(method = "readCustomDataFromTag(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     public void injectReadTagData(CompoundTag tag, CallbackInfo ci) {
-        if(isEnchantable()) this.setEnchanted(tag.getBoolean("Enchanted"));
+        if(this.isEnchantable()) this.setEnchanted(tag.getBoolean("Enchanted"));
     }
 }

@@ -115,7 +115,7 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
         ServerWorld w = (ServerWorld)getEntityWorld();
         enchantedEntities.removeIf(u -> {
             Entity e = w.getEntity(u);
-            return !(e instanceof LivingEntity) || !EnchantingSpell.isEnchantable((LivingEntity) e, true);
+            return !(e instanceof MobEntity) || ((MobEntityExt) e).isEnchantable(true);
         });
     }
 

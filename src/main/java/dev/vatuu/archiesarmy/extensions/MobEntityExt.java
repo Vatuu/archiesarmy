@@ -8,4 +8,7 @@ public interface MobEntityExt {
     boolean isEnchantable();
     void setEnchanted(boolean b);
     boolean isEnchanted();
+    default float getEnchantedScale() {
+        return 1.2f;
+    }
 }
