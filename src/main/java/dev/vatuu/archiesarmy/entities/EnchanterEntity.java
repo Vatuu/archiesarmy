@@ -1,6 +1,7 @@
 package dev.vatuu.archiesarmy.entities;
 
-import dev.vatuu.archiesarmy.spells.goals.LookAtTargetGoal;
+import net.fabricmc.fabric.api.util.NbtType;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityGroup;
@@ -25,11 +26,13 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
+import dev.vatuu.archiesarmy.entities.spells.EnchantingSpell;
 import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.registries.Spells;
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
 import dev.vatuu.archiesarmy.spells.goals.CastSpellGoal;
+import dev.vatuu.archiesarmy.spells.goals.LookAtTargetGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ import java.util.UUID;
 
 public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
-    public final List<UUID> enchantingEntities = new ArrayList<>();
+    public final List<UUID> enchantedEntities = new ArrayList<>();
     public LivingEntity enchantingTarget;
 
     public EnchanterEntity(EntityType<EnchanterEntity> type, World world) {
@@ -55,16 +58,16 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
     public void readCustomDataFromTag(CompoundTag tag) {
         super.readCustomDataFromTag(tag);
-        enchantingEntities.clear();
-        ListTag list = tag.getList("Enchanting", 0);
-        list.forEach(u -> enchantingEntities.add(NbtHelper.toUuid(u)));
+        enchantedEntities.clear();
+        ListTag list = tag.getList("Enchanting", NbtType.INT_ARRAY);
+        list.forEach(u -> enchantedEntities.add(NbtHelper.toUuid(u)));
     }
 
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
         ListTag enchanting = new ListTag();
-        for (int i = 0; i < enchantingEntities.size(); i++)
-            enchanting.addTag(i, NbtHelper.fromUuid(enchantingEntities.get(i)));
+        for (int i = 0; i < enchantedEntities.size(); i++)
+            enchanting.addTag(i, NbtHelper.fromUuid(enchantedEntities.get(i)));
         tag.put("Enchanting", enchanting);
     }
 
@@ -84,7 +87,7 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
     public boolean isTeammate(Entity other) {
         if (other == null)
             return false;
-        else if (other == this || super.isTeammate(other) || enchantingEntities.contains(other.getUuid()))
+        else if (other == this || super.isTeammate(other) || enchantedEntities.contains(other.getUuid()))
             return true;
         else if (other instanceof LivingEntity && ((LivingEntity)other).getGroup() == EntityGroup.ILLAGER)
             return this.getScoreboardTeam() == null && other.getScoreboardTeam() == null;
@@ -99,7 +102,7 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
     public void onDeath(DamageSource source) {
         super.onDeath(source);
         ServerWorld w = (ServerWorld)getEntityWorld();
-        enchantingEntities.forEach(u -> {
+        enchantedEntities.forEach(u -> {
             Entity e = w.getEntity(u);
             if(!(e == null || !e.isAlive()) && e instanceof MobEntity)
                 ((MobEntityExt)e).setEnchanted(false);
@@ -110,9 +113,9 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
     protected void mobTick() {
         super.mobTick();
         ServerWorld w = (ServerWorld)getEntityWorld();
-        enchantingEntities.removeIf(u -> {
+        enchantedEntities.removeIf(u -> {
             Entity e = w.getEntity(u);
-            return e == null || !e.isAlive();
+            return !(e instanceof LivingEntity) || !EnchantingSpell.isEnchantable((LivingEntity) e, true);
         });
     }
 
@@ -126,11 +129,11 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
     public SoundEvent getCastSpellSound() { return Sounds.ENTITY_ENCHANTER_SPELL; }
 
     public boolean canEnchant() {
-        return enchantingEntities.size() < 3;
+        return enchantedEntities.size() < 3;
     }
 
     public void enchant(LivingEntity target) {
-        this.enchantingEntities.add(target.getUuid());
+        this.enchantedEntities.add(target.getUuid());
         ((MobEntityExt) target).setEnchanted(true);
     }
 

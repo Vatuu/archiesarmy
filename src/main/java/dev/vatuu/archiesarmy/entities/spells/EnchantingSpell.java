@@ -1,9 +1,8 @@
 package dev.vatuu.archiesarmy.entities.spells;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
@@ -13,7 +12,6 @@ import dev.vatuu.archiesarmy.extensions.MobEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.spells.Spell;
 
-import com.google.common.collect.ImmutableSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,20 +19,11 @@ public class EnchantingSpell extends Spell<EnchanterEntity> {
 
     public static final Identifier ID = ArchiesArmy.id("enchant");
 
-    public static final ImmutableSet<EntityType<?>> ENHANCEABLE_ENTITIES = ImmutableSet.of(EntityType.ZOMBIE, EntityType.CREEPER, EntityType.SKELETON);
+    private final TargetPredicate enchanterTargetPredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeInvulnerable().setPredicate(livingEntity -> EnchantingSpell.isEnchantable(livingEntity, false));
 
-    private final TargetPredicate enchanterTargetPredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeInvulnerable().setPredicate(livingEntity -> {
-        System.out.println("haha yes "+livingEntity);
-        return ENHANCEABLE_ENTITIES.stream().anyMatch(t -> t.equals(livingEntity.getType()) &&
-                EnchantingSpell.canEnchant(livingEntity));
-    });
-
-    public static boolean canEnchant(LivingEntity target) {
-        return !(target instanceof PlayerEntity) &&
-                ENHANCEABLE_ENTITIES.contains(target.getType()) &&
-                target.isAlive() &&
-                target instanceof MobEntityExt &&
-                !((MobEntityExt) target).isEnchanted();
+    public static boolean isEnchantable(LivingEntity target, boolean already) {
+        return target instanceof MobEntity &&
+                ((MobEntityExt) target).isEnchantable(already);
     }
 
     public EnchantingSpell() { super(ID); }

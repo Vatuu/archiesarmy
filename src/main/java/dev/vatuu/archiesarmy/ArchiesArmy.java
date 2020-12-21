@@ -9,6 +9,7 @@ import dev.vatuu.archiesarmy.network.NetworkHandler;
 import dev.vatuu.archiesarmy.registries.Entities;
 import dev.vatuu.archiesarmy.registries.Items;
 import dev.vatuu.archiesarmy.registries.Spells;
+import dev.vatuu.archiesarmy.registries.Tags;
 import dev.vatuu.archiesarmy.spells.SpellRegistry;
 
 public class ArchiesArmy implements ModInitializer {
@@ -27,6 +28,7 @@ public class ArchiesArmy implements ModInitializer {
         Spells.init();
         networkHandler = new NetworkHandler();
         Items.init();
+        Tags.init();
     }
 
     public static Identifier id(String name) {

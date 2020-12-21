@@ -13,6 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.MinecraftServer;
@@ -33,6 +36,13 @@ public abstract class EntityMixin implements EntityExt, Nameable, CommandOutput 
 
     @Shadow @Nullable public abstract MinecraftServer getServer();
     @Shadow public int age;
+
+    @Shadow private EntityDimensions dimensions;
+    @Shadow private float standingEyeHeight;
+
+    @Shadow protected abstract float getEyeHeight(EntityPose pose, EntityDimensions dimensions);
+
+    @Shadow public abstract EntityType<?> getType();
 
     private final Object2IntMap<Identifier> animationData = new Object2IntArrayMap<>();
 
