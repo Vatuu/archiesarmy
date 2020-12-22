@@ -14,12 +14,13 @@ import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.util.Identifier;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
 import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
 import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 
 @Mixin(SkeletonEntityRenderer.class)
-public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<AbstractSkeletonEntity, SkeletonEntityModel<AbstractSkeletonEntity>> {
+public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<AbstractSkeletonEntity, SkeletonEntityModel<AbstractSkeletonEntity>> implements EnchantableEntityRenderer<AbstractSkeletonEntity> {
 
     private static final Identifier ENCHANTED_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/skeleton.png");
     private static final Identifier EMISSIVE_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/skeleton_emissive.png");
@@ -30,13 +31,23 @@ public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<Ab
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void addFeatureRenderer(CallbackInfo info) {
-        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, new SkeletonEntityModel<>(), EMISSIVE_TEXTURE));
+        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, new SkeletonEntityModel<>(), this.getEmissiveTexture()));
         this.addFeature(new EnchantmentEffectFeatureRenderer<>(this, new SkeletonEntityModel<>(0F, false)));
     }
 
     @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
     public void getTexture(AbstractSkeletonEntity e, CallbackInfoReturnable<Identifier> info) {
-        if(((MobEntityExt)e).isEnchanted())
-            info.setReturnValue(ENCHANTED_TEXTURE);
+        if(((LivingEntityExt)e).isEnchanted())
+            info.setReturnValue(this.getEnchantedTexture(e));
+    }
+
+    @Override
+    public Identifier getEnchantedTexture(AbstractSkeletonEntity entity) {
+        return ENCHANTED_TEXTURE;
+    }
+
+    @Override
+    public Identifier getEmissiveTexture() {
+        return EMISSIVE_TEXTURE;
     }
 }

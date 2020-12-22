@@ -26,8 +26,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
-import dev.vatuu.archiesarmy.entities.spells.EnchantingSpell;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.registries.Spells;
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
@@ -104,8 +103,8 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
         ServerWorld w = (ServerWorld)getEntityWorld();
         enchantedEntities.forEach(u -> {
             Entity e = w.getEntity(u);
-            if(!(e == null || !e.isAlive()) && e instanceof MobEntity)
-                ((MobEntityExt)e).setEnchanted(false);
+            if(!(e == null || !e.isAlive()) && e instanceof LivingEntity)
+                ((LivingEntityExt)e).setEnchanted(false);
         });
     }
 
@@ -115,7 +114,11 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
         ServerWorld w = (ServerWorld)getEntityWorld();
         enchantedEntities.removeIf(u -> {
             Entity e = w.getEntity(u);
-            return !(e instanceof MobEntity) || !((MobEntityExt) e).isEnchantable(true);
+            boolean living = e instanceof LivingEntity;
+            if(living && this.distanceTo(e) > this.getMaxDistanceFromEnchantedMob((LivingEntity) e)) {
+                ((LivingEntityExt)e).setEnchanted(false);
+            }
+            return !living || !((LivingEntityExt) e).isEnchantable(true) || enchantedEntities.indexOf(u) > this.getMaxEnchantedMobs();
         });
     }
 
@@ -129,12 +132,12 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
     public SoundEvent getCastSpellSound() { return Sounds.ENTITY_ENCHANTER_SPELL; }
 
     public boolean canEnchant() {
-        return enchantedEntities.size() < 3;
+        return enchantedEntities.size() < this.getMaxEnchantedMobs();
     }
 
     public void enchant(LivingEntity target) {
         this.enchantedEntities.add(target.getUuid());
-        ((MobEntityExt) target).setEnchanted(true);
+        ((LivingEntityExt) target).setEnchanted(true);
     }
 
     public LivingEntity getEnchantingTarget() {
@@ -143,6 +146,18 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
     public void setEnchantingTarget(@Nullable LivingEntity target) {
         this.enchantingTarget = target;
+    }
+
+    public int getMaxEnchantedMobs() {
+        return 2;
+    }
+
+    public float getEnchantingRange() {
+        return 16f;
+    }
+
+    public float getMaxDistanceFromEnchantedMob(LivingEntity enchanted) {
+        return 32f;
     }
 
     private static class LookAtTargetOrEnchantingTargetGoal extends LookAtTargetGoal {

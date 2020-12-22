@@ -1,6 +1,6 @@
 package dev.vatuu.archiesarmy.extensions;
 
-public interface MobEntityExt {
+public interface LivingEntityExt {
 
     default boolean isEnchantable(boolean already) {
         return isEnchantable() && isEnchanted() == already;

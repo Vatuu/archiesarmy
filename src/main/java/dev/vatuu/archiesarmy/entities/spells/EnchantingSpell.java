@@ -2,13 +2,12 @@ package dev.vatuu.archiesarmy.entities.spells;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.spells.Spell;
 
@@ -22,8 +21,8 @@ public class EnchantingSpell extends Spell<EnchanterEntity> {
     private final TargetPredicate enchanterTargetPredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeInvulnerable().setPredicate(livingEntity -> EnchantingSpell.isEnchantable(livingEntity, false));
 
     public static boolean isEnchantable(LivingEntity target, boolean already) {
-        return target instanceof MobEntity &&
-                ((MobEntityExt) target).isEnchantable(already);
+        return target != null &&
+                ((LivingEntityExt) target).isEnchantable(already);
     }
 
     public EnchantingSpell() { super(ID); }
@@ -55,7 +54,7 @@ public class EnchantingSpell extends Spell<EnchanterEntity> {
         } else if (entity.age < this.getInitialCooldown()) {
             return false;
         } else if (entity.canEnchant()) {
-            List<LivingEntity> list = entity.world.getTargets(LivingEntity.class, this.enchanterTargetPredicate, entity, entity.getBoundingBox().expand(16.0D, 4.0D, 16.0D));
+            List<LivingEntity> list = entity.world.getTargets(LivingEntity.class, this.enchanterTargetPredicate, entity, entity.getBoundingBox().expand(entity.getEnchantingRange(), 4.0D, entity.getEnchantingRange()));
             if (list.isEmpty()) {
                 return false;
             } else {

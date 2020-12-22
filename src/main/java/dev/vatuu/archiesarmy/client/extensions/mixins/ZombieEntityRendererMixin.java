@@ -14,12 +14,13 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.util.Identifier;
 
 import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
 import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
 import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 
 @Mixin(ZombieEntityRenderer.class)
-public abstract class ZombieEntityRendererMixin extends ZombieBaseEntityRenderer<ZombieEntity, ZombieEntityModel<ZombieEntity>> {
+public abstract class ZombieEntityRendererMixin extends ZombieBaseEntityRenderer<ZombieEntity, ZombieEntityModel<ZombieEntity>> implements EnchantableEntityRenderer<ZombieEntity> {
 
     private static final Identifier ENCHANTED_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/zombie.png");
     private static final Identifier EMISSIVE_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/zombie_emissive.png");
@@ -30,15 +31,25 @@ public abstract class ZombieEntityRendererMixin extends ZombieBaseEntityRenderer
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void addFeatureRenderer(CallbackInfo info) {
-        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, new ZombieEntityModel<>(0, false), EMISSIVE_TEXTURE));
+        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, new ZombieEntityModel<>(0, false), this.getEmissiveTexture()));
         this.addFeature(new EnchantmentEffectFeatureRenderer<>(this, new ZombieEntityModel<>(0F, false)));
     }
 
     @Override
     public Identifier getTexture(ZombieEntity e) {
-        if(((MobEntityExt)e).isEnchanted() && !(e instanceof DrownedEntity))
-            return ENCHANTED_TEXTURE;
+        if(((LivingEntityExt)e).isEnchanted() && !(e instanceof DrownedEntity))
+            return this.getEnchantedTexture(e);
         else
             return super.getTexture(e);
+    }
+
+    @Override
+    public Identifier getEnchantedTexture(ZombieEntity entity) {
+        return ENCHANTED_TEXTURE;
+    }
+
+    @Override
+    public Identifier getEmissiveTexture() {
+        return EMISSIVE_TEXTURE;
     }
 }

@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
@@ -12,20 +13,19 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;
 
 import dev.vatuu.archiesarmy.extensions.EntityExt;
-import dev.vatuu.archiesarmy.extensions.MobEntityExt;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import dev.vatuu.archiesarmy.registries.Tags;
 
-@Mixin(MobEntity.class)
-public abstract class MobEntityMixin extends LivingEntity implements MobEntityExt, EntityExt {
+@Mixin(LivingEntity.class)
+public abstract class LivingEntityMixin extends Entity implements LivingEntityExt, EntityExt {
 
-    private static final TrackedData<Boolean> ENCHANTED = DataTracker.registerData(MobEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> ENCHANTED = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-    protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+    protected LivingEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
