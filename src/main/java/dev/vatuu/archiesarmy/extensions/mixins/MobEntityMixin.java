@@ -41,7 +41,7 @@ public abstract class MobEntityMixin extends LivingEntity implements MobEntityEx
 
     @Override
     public void setEnchanted(boolean enchanted) {
-        if(this.isEnchantable()) this.dataTracker.set(ENCHANTED, enchanted);
+        if(this.isEnchantable() || !enchanted) this.dataTracker.set(ENCHANTED, enchanted);
     }
 
     @Override
