@@ -1,10 +1,10 @@
 package dev.vatuu.archiesarmy.client.extensions.mixins;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.ZombieBaseEntityRenderer;
 import net.minecraft.client.render.entity.ZombieEntityRenderer;
@@ -12,12 +12,10 @@ import net.minecraft.client.render.entity.model.ZombieEntityModel;
 import net.minecraft.entity.mob.DrownedEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.util.Identifier;
-
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
-import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ZombieEntityRenderer.class)
 public abstract class ZombieEntityRendererMixin extends ZombieBaseEntityRenderer<ZombieEntity, ZombieEntityModel<ZombieEntity>> implements EnchantableEntityRenderer<ZombieEntity> {
@@ -37,7 +35,7 @@ public abstract class ZombieEntityRendererMixin extends ZombieBaseEntityRenderer
 
     @Override
     public Identifier getTexture(ZombieEntity e) {
-        if(((LivingEntityExt)e).isEnchanted() && !(e instanceof DrownedEntity))
+        if (((LivingEntityExt) e).isEnchanted() && !(e instanceof DrownedEntity))
             return this.getEnchantedTexture(e);
         else
             return super.getTexture(e);

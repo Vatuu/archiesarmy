@@ -1,63 +1,66 @@
 package dev.vatuu.archiesarmy.client.bedrock.geometry;
 
+import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.vatuu.archiesarmy.util.Codecs;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.util.math.Vector4f;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Matrix3f;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import java.lang.reflect.Type;
+import java.util.List;
 import java.util.stream.Stream;
 
-public final class GeometryCuboid {
+//TODO Per-Face UV
+public final class GeometryCube {
+
+    private final Vector3f origin, size, rotation, pivot;
+    private final float inflate;
+    private final boolean mirror;
+    private final float u, v;
 
     private Face[] faces;
 
-    private Vector3f rotation, pivot;
-
-    private final Vec3d size, origin;
-    private final float inflate, u, v;
-    private final boolean mirror;
-
-    public GeometryCuboid(Vec3d origin, Vec3d size, float inflate, float u, float v, boolean mirror) {
-        this.origin = origin; this.size = size;
+    private GeometryCube(Vector3f origin, Vector3f size, Vector3f rotation, Vector3f pivot, float inflate, boolean mirror, List<Float> uv) {
+        this.origin = origin;
+        this.size = size;
+        this.rotation = rotation;
+        this.pivot = pivot;
         this.inflate = inflate;
-        this.u = u; this.v = v;
         this.mirror = mirror;
+        this.u = uv.get(0);
+        this.v = uv.get(1);
     }
 
-    public void defineFaces(int texWidth, int texHeight) {
-        Vec3d secondCorner = origin.add(size);
+    public void defineFaces(int texWidth, int texHeight, float boneInflate) {
+        float inflate = this.inflate + boneInflate;
+
+        Vector3f secondCorner = origin.copy();
+        secondCorner.add(size);
 
         this.faces = new Face[6];
-        Vec3d inflatedMin = origin.subtract(inflate, inflate, inflate);
-        Vec3d inflatedMax = secondCorner.add(inflate, inflate, inflate);
+        Vector3f inflatedMin = origin.copy();
+        inflatedMin.subtract(new Vector3f(inflate, inflate, inflate));
+        Vector3f inflatedMax = secondCorner.copy();
+        inflatedMax.add(new Vector3f(inflate, inflate, inflate));
 
         if (mirror) {
-            double x = inflatedMax.getX();
-            inflatedMax = new Vec3d(inflatedMin.getX(), inflatedMax.getY(), inflatedMax.getZ());
-            inflatedMin = new Vec3d(x, inflatedMin.getY(), inflatedMin.getZ());
+            float x = inflatedMax.getX();
+            inflatedMax = new Vector3f(inflatedMin.getX(), inflatedMax.getY(), inflatedMax.getZ());
+            inflatedMin = new Vector3f(x, inflatedMin.getY(), inflatedMin.getZ());
         }
 
         TexturedVertex[] vertices = new TexturedVertex[8];
-        vertices[0] = new TexturedVertex(new Vec3d(inflatedMin.x, inflatedMin.y, inflatedMin.z), 0.0F, 0.0F);
-        vertices[1] = new TexturedVertex(new Vec3d(inflatedMax.x, inflatedMin.y, inflatedMin.z), 0.0F, 8.0F);
-        vertices[2] = new TexturedVertex(new Vec3d(inflatedMax.x, inflatedMax.y, inflatedMin.z), 8.0F, 8.0F);
-        vertices[3] = new TexturedVertex(new Vec3d(inflatedMin.x, inflatedMax.y, inflatedMin.z), 8.0F, 0.0F);
-        vertices[4] = new TexturedVertex(new Vec3d(inflatedMin.x, inflatedMin.y, inflatedMax.z), 0.0F, 0.0F);
-        vertices[5] = new TexturedVertex(new Vec3d(inflatedMax.x, inflatedMin.y, inflatedMax.z), 0.0F, 8.0F);
-        vertices[6] = new TexturedVertex(new Vec3d(inflatedMax.x, inflatedMax.y, inflatedMax.z), 8.0F, 8.0F);
-        vertices[7] = new TexturedVertex(new Vec3d(inflatedMin.x, inflatedMax.y, inflatedMax.z), 8.0F, 0.0F);
+        vertices[0] = new TexturedVertex(new Vec3d(inflatedMin.getX(), inflatedMin.getY(), inflatedMin.getZ()), 0.0F, 0.0F);
+        vertices[1] = new TexturedVertex(new Vec3d(inflatedMax.getX(), inflatedMin.getY(), inflatedMin.getZ()), 0.0F, 8.0F);
+        vertices[2] = new TexturedVertex(new Vec3d(inflatedMax.getX(), inflatedMax.getY(), inflatedMin.getZ()), 8.0F, 8.0F);
+        vertices[3] = new TexturedVertex(new Vec3d(inflatedMin.getX(), inflatedMax.getY(), inflatedMin.getZ()), 8.0F, 0.0F);
+        vertices[4] = new TexturedVertex(new Vec3d(inflatedMin.getX(), inflatedMin.getY(), inflatedMax.getZ()), 0.0F, 0.0F);
+        vertices[5] = new TexturedVertex(new Vec3d(inflatedMax.getX(), inflatedMin.getY(), inflatedMax.getZ()), 0.0F, 8.0F);
+        vertices[6] = new TexturedVertex(new Vec3d(inflatedMax.getX(), inflatedMax.getY(), inflatedMax.getZ()), 8.0F, 8.0F);
+        vertices[7] = new TexturedVertex(new Vec3d(inflatedMin.getX(), inflatedMax.getY(), inflatedMax.getZ()), 8.0F, 0.0F);
 
         double k = u + size.getZ();
         double l = u + size.getZ() + size.getX();
@@ -76,17 +79,12 @@ public final class GeometryCuboid {
 
     }
 
-    public void setCuboidRotation(float x, float y, float z, float pitch, float yaw, float roll) {
-        this.pivot = new Vector3f(x, y, z);
-        this.rotation = new Vector3f(pitch, yaw, roll);
-    }
-
     public void renderCuboid(MatrixStack stack, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
         stack.push();
 
-        if(rotation != null) {
+        if (rotation != null) {
             stack.translate(pivot.getX() / 16F, pivot.getY() / 16F, pivot.getZ() / 16F);
-            stack.multiply(new Quaternion(-rotation.getX(), rotation.getY(), -rotation.getZ(), false));
+            stack.multiply(new Quaternion(-rotation.getX(), rotation.getY(), -rotation.getZ(), true));
             stack.translate(-(pivot.getX() / 16F), -(pivot.getY() / 16F), -(pivot.getZ() / 16F));
         }
 
@@ -105,21 +103,31 @@ public final class GeometryCuboid {
                 normal.multiplyComponentwise(1, 1, -1);
 
             Stream.of(f.vertices).forEach(v -> {
-                float x = (float)v.pos.getX() / 16.0F;
-                float y = (float)v.pos.getY() / 16.0F;
-                float z = (float)v.pos.getZ() / 16.0F;
+                float x = (float) v.pos.getX() / 16.0F;
+                float y = (float) v.pos.getY() / 16.0F;
+                float z = (float) v.pos.getZ() / 16.0F;
                 Vector4f pos = new Vector4f(x, y, z, 1.0F);
                 pos.transform(modelMatrix);
                 consumer.vertex(
                         pos.getX(), pos.getY(), pos.getZ(),
                         red, green, blue, alpha,
-                        (float)v.u, (float)v.v, overlay, light,
+                        (float) v.u, (float) v.v, overlay, light,
                         normal.getX(), normal.getY(), normal.getZ());
             });
         });
 
         stack.pop();
     }
+
+    public static final Codec<GeometryCube> CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codecs.VEC_3F.optionalFieldOf("origin", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.origin),
+            Codecs.VEC_3F.optionalFieldOf("size", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.size),
+            Codecs.VEC_3F.optionalFieldOf("rotation", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.rotation),
+            Codecs.VEC_3F.optionalFieldOf("pivot", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.pivot),
+            Codec.FLOAT.optionalFieldOf("inflate", 0F).forGetter((GeometryCube o) -> o.inflate),
+            Codec.BOOL.optionalFieldOf("mirror", false).forGetter((GeometryCube o) -> o.mirror),
+            Codec.FLOAT.listOf().optionalFieldOf("uv", Lists.newArrayList(0F, 0F)).forGetter((GeometryCube o) -> Lists.newArrayList(o.u, o.v))
+    ).apply(i, GeometryCube::new));
 
     private static final class Face {
         private final TexturedVertex[] vertices;
@@ -138,8 +146,8 @@ public final class GeometryCuboid {
             this.normal = d.getUnitVector();
             this.normal.multiplyComponentwise(1F, -1F, -1F);
 
-            if(mirror) {
-                for(int i = 0; i < vertices.length / 2; ++i) {
+            if (mirror) {
+                for (int i = 0; i < vertices.length / 2; ++i) {
                     TexturedVertex vertex = vertices[i];
                     vertices[i] = vertices[vertices.length - 1 - i];
                     vertices[vertices.length - 1 - i] = vertex;
@@ -155,42 +163,12 @@ public final class GeometryCuboid {
 
         public TexturedVertex(Vec3d pos, double u, double v) {
             this.pos = pos;
-            this.u = u; this.v = v;
+            this.u = u;
+            this.v = v;
         }
 
         public TexturedVertex uvRemap(double u, double v) {
             return new TexturedVertex(this.pos, u, v);
-        }
-    }
-
-    public static class Deserializer implements JsonDeserializer<GeometryCuboid> {
-
-        @Override
-        public GeometryCuboid deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject obj = json.getAsJsonObject();
-            JsonArray originJson = obj.getAsJsonArray("origin");
-            Vec3d origin = new Vec3d(originJson.get(0).getAsDouble(), originJson.get(1).getAsDouble(), originJson.get(2).getAsDouble());
-            JsonArray sizeJson = obj.getAsJsonArray("size");
-            Vec3d size = new Vec3d(sizeJson.get(0).getAsDouble(), sizeJson.get(1).getAsDouble(), sizeJson.get(2).getAsDouble());
-            JsonArray uv = obj.getAsJsonArray("uv");
-            float u = uv.get(0).getAsFloat(); float v = uv.get(1).getAsFloat();
-            boolean mirror = obj.has("mirror") && obj.get("mirror").getAsBoolean();
-
-            float inflate = 0;
-            if(obj.has("inflate"))
-                inflate = obj.get("inflate").getAsFloat();
-
-            GeometryCuboid cube = new GeometryCuboid(origin, size, inflate, u, v, mirror);
-
-            if(obj.has("rotation") && obj.has("pivot")) {
-                JsonArray pivot = obj.getAsJsonArray("pivot");
-                JsonArray rot = obj.getAsJsonArray("rotation");
-                cube.setCuboidRotation(
-                        pivot.get(0).getAsFloat(), pivot.get(1).getAsFloat(), pivot.get(2).getAsFloat(),
-                        (float)Math.toRadians(rot.get(0).getAsFloat()), (float)Math.toRadians(rot.get(1).getAsFloat()), (float)Math.toRadians(rot.get(2).getAsFloat()));
-            }
-
-            return cube;
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-	"format_version": "1.12.0",
+	"format_version": "1.16.4",
 	"minecraft:geometry": [
 		{
 			"description": {

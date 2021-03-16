@@ -1,15 +1,14 @@
 package dev.vatuu.archiesarmy.entities.spells;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
 import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import dev.vatuu.archiesarmy.registries.Sounds;
 import dev.vatuu.archiesarmy.spells.Spell;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +24,9 @@ public class EnchantingSpell extends Spell<EnchanterEntity> {
                 ((LivingEntityExt) target).isEnchantable(already);
     }
 
-    public EnchantingSpell() { super(ID); }
+    public EnchantingSpell() {
+        super(ID);
+    }
 
     @Override
     public int getInitialCooldown() {
@@ -61,7 +62,8 @@ public class EnchantingSpell extends Spell<EnchanterEntity> {
                 entity.setEnchantingTarget(list.get(entity.getRandom().nextInt(list.size())));
                 return true;
             }
-        } return false;
+        }
+        return false;
     }
 
     @Override

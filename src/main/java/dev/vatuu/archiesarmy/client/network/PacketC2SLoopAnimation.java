@@ -1,13 +1,12 @@
 package dev.vatuu.archiesarmy.client.network;
 
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
+import dev.vatuu.archiesarmy.network.AbstractPacket;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
-import dev.vatuu.archiesarmy.network.AbstractPacket;
 
 public class PacketC2SLoopAnimation implements AbstractPacket {
 
@@ -17,7 +16,9 @@ public class PacketC2SLoopAnimation implements AbstractPacket {
     private Identifier id;
     private int newAge;
 
-    public PacketC2SLoopAnimation() { }
+    public PacketC2SLoopAnimation() {
+    }
+
     public PacketC2SLoopAnimation(Entity targetEntity, Identifier id, int newAge) {
         this.targetEntity = targetEntity;
         this.id = id;
@@ -45,6 +46,6 @@ public class PacketC2SLoopAnimation implements AbstractPacket {
 
     @Override
     public void onReceive() {
-        ((EntityExt)targetEntity).updateTime(id, newAge);
+        ((EntityExt) targetEntity).updateTime(id, newAge);
     }
 }

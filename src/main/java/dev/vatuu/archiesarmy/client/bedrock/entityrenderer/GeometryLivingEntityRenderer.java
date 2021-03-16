@@ -1,5 +1,6 @@
 package dev.vatuu.archiesarmy.client.bedrock.entityrenderer;
 
+import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -20,8 +21,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 
-import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
-
 public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M extends EntityGeometryModel<T>> extends EntityRenderer<T> {
 
     private final M model;
@@ -32,8 +31,13 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
         this.shadowRadius = shadowRadius;
     }
 
-    protected float getLyingAngle(T entity) { return 90.0F; }
-    protected void scale(T entity, MatrixStack matrices, float amount) { }
+    protected float getLyingAngle(T entity) {
+        return 90.0F;
+    }
+
+    protected void scale(T entity, MatrixStack matrices, float amount) {
+    }
+
     protected float getAnimationCounter(T entity, float tickDelta) {
         return 0.0F;
     }
@@ -65,7 +69,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
         float yawProgress = headYaw - bodyYaw;
 
         if (entity.hasVehicle() && entity.getVehicle() instanceof LivingEntity) {
-            LivingEntity vehicle = (LivingEntity)entity.getVehicle();
+            LivingEntity vehicle = (LivingEntity) entity.getVehicle();
             bodyYaw = MathHelper.lerpAngleDegrees(tickDelta, vehicle.prevBodyYaw, vehicle.bodyYaw);
             yawProgress = headYaw - bodyYaw;
             float o = MathHelper.clamp(MathHelper.wrapDegrees(yawProgress), -85F, 85F);
@@ -77,12 +81,12 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
             yawProgress = headYaw - bodyYaw;
         }
 
-        float adjustedEyeHeight ;
+        float adjustedEyeHeight;
         if (entity.getPose() == EntityPose.SLEEPING) {
             Direction direction = entity.getSleepingDirection();
             if (direction != null) {
                 adjustedEyeHeight = entity.getEyeHeight(EntityPose.STANDING) - 0.1F;
-                stack.translate((float)(-direction.getOffsetX()) * adjustedEyeHeight, 0.0D, (float)(-direction.getOffsetZ()) * adjustedEyeHeight);
+                stack.translate((float) (-direction.getOffsetX()) * adjustedEyeHeight, 0.0D, (float) (-direction.getOffsetZ()) * adjustedEyeHeight);
             }
         }
         float animationProgress = this.getAnimationProgress(entity, tickDelta);
@@ -120,7 +124,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
     }
 
     protected float getAnimationProgress(T entity, float tickDelta) {
-        return (float)entity.age + tickDelta;
+        return (float) entity.age + tickDelta;
     }
 
     protected boolean isVisible(T entity) {
@@ -134,7 +138,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
         }
 
         if (entity.deathTime > 0) {
-            float f = ((float)entity.deathTime + tickDelta - 1.0F) / 20.0F * 1.6F;
+            float f = ((float) entity.deathTime + tickDelta - 1.0F) / 20.0F * 1.6F;
             f = MathHelper.sqrt(f);
             if (f > 1.0F) {
                 f = 1.0F;
@@ -143,7 +147,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
             matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(f * this.getLyingAngle(entity)));
         } else if (entity.isUsingRiptide()) {
             matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90.0F - entity.pitch));
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(((float)entity.age + tickDelta) * -75.0F));
+            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(((float) entity.age + tickDelta) * -75.0F));
         } else if (entityPose == EntityPose.SLEEPING) {
             Direction direction = entity.getSleepingDirection();
             float g = direction != null ? getYaw(direction) : bodyYaw;
@@ -152,7 +156,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
             matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(270.0F));
         } else if (entity.hasCustomName() || entity instanceof PlayerEntity) {
             String string = Formatting.strip(entity.getName().getString());
-            if (("Dinnerbone".equals(string) || "Grumm".equals(string)) && (!(entity instanceof PlayerEntity) || ((PlayerEntity)entity).isPartVisible(PlayerModelPart.CAPE))) {
+            if (("Dinnerbone".equals(string) || "Grumm".equals(string)) && (!(entity instanceof PlayerEntity) || ((PlayerEntity) entity).isPartVisible(PlayerModelPart.CAPE))) {
                 matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
                 matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
             }
@@ -161,7 +165,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
     }
 
     private static float getYaw(Direction direction) {
-        switch(direction) {
+        switch (direction) {
             case SOUTH:
                 return 90.0F;
             case NORTH:
@@ -177,7 +181,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
     protected boolean hasLabel(T livingEntity) {
         double d = this.dispatcher.getSquaredDistanceToCamera(livingEntity);
         float f = livingEntity.isSneaky() ? 32.0F : 64.0F;
-        if (d >= (double)(f * f)) {
+        if (d >= (double) (f * f)) {
             return false;
         } else {
             MinecraftClient minecraftClient = MinecraftClient.getInstance();
@@ -188,7 +192,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
                 AbstractTeam abstractTeam2 = clientPlayerEntity.getScoreboardTeam();
                 if (abstractTeam != null) {
                     AbstractTeam.VisibilityRule visibilityRule = abstractTeam.getNameTagVisibilityRule();
-                    switch(visibilityRule) {
+                    switch (visibilityRule) {
                         case ALWAYS:
                             return bl;
                         case NEVER:

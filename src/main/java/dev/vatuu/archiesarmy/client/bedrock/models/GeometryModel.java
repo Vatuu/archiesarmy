@@ -1,12 +1,11 @@
 package dev.vatuu.archiesarmy.client.bedrock.models;
 
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+import dev.vatuu.archiesarmy.client.bedrock.geometry.GeometryObject;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
-import dev.vatuu.archiesarmy.client.bedrock.geometry.GeometryData;
 
 import java.util.function.Function;
 
@@ -24,7 +23,7 @@ public abstract class GeometryModel {
         return this.layerFactory.apply(texture);
     }
 
-    public GeometryData getModelData() {
+    public GeometryObject getModelData() {
         return ArchiesArmyClient.INSTANCE.geometryManager.getModelData(data);
     }
 
@@ -34,6 +33,9 @@ public abstract class GeometryModel {
         postRender(stack, consumer, light, overlay, red, green, blue, alpha);
     }
 
-    public void preRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) { }
-    public void postRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) { }
+    public void preRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+    }
+
+    public void postRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+    }
 }

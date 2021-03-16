@@ -2,7 +2,10 @@
   "required": true,
   "package": "dev.vatuu.archiesarmy.extensions.mixins",
   "compatibilityLevel": "JAVA_8",
-  "mixins": ["EntityMixin", "LivingEntityMixin"],
+  "mixins": [
+    "EntityMixin",
+    "LivingEntityMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

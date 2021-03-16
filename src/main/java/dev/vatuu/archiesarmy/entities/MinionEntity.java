@@ -1,5 +1,7 @@
 package dev.vatuu.archiesarmy.entities;
 
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
@@ -11,10 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
-
-public class MinionEntity extends HostileEntity{
+public class MinionEntity extends HostileEntity {
 
     public MinionEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -34,10 +33,10 @@ public class MinionEntity extends HostileEntity{
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(!((EntityExt)this).getServerAnimationData().isEmpty()) {
-            ((EntityExt)this).removeAnimation(ArchiesArmy.id("animations/entities/minion.animation"), false);
+        if (!((EntityExt) this).getServerAnimationData().isEmpty()) {
+            ((EntityExt) this).removeAnimation(ArchiesArmy.id("animations/entities/minion.animation"), false);
         } else
-            ((EntityExt)this).addAnimation(ArchiesArmy.id("animations/entities/minion.animation"), false);
+            ((EntityExt) this).addAnimation(ArchiesArmy.id("animations/entities/minion.animation"), false);
 
         return ActionResult.SUCCESS;
     }

@@ -1,10 +1,9 @@
 package dev.vatuu.archiesarmy.spells.goals;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.sound.SoundEvent;
-
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
 import dev.vatuu.archiesarmy.spells.Spell;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.sound.SoundEvent;
 
 public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Goal {
 
@@ -19,9 +18,9 @@ public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Go
 
     @Override
     public boolean canStart() {
-        if(entity.isSpellcasting())
+        if (entity.isSpellcasting())
             return false;
-        if(entity.age < startTime)
+        if (entity.age < startTime)
             return false;
         return spell.canStart(entity);
     }
@@ -51,7 +50,7 @@ public class CastSpellGoal<T extends BetterSpellcastingIllagerEntity> extends Go
             if (soundEvent != null)
                 entity.playSound(soundEvent, 1.0F, 1.0F);
             soundEvent = spell.getCastSound();
-            if(soundEvent != null)
+            if (soundEvent != null)
                 entity.playSound(soundEvent, 1.0F, 1.0F);
         }
     }

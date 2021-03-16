@@ -2,7 +2,6 @@ package dev.vatuu.archiesarmy.spells;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -26,6 +25,7 @@ public abstract class BetterSpellcastingIllagerEntity extends IllagerEntity {
     }
 
     public abstract SoundEvent getCastPrepareSound();
+
     public abstract SoundEvent getCastSpellSound();
 
     protected void initDataTracker() {

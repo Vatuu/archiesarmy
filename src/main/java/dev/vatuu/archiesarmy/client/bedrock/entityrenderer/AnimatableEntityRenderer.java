@@ -1,5 +1,11 @@
 package dev.vatuu.archiesarmy.client.bedrock.entityrenderer;
 
+import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
+import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
+import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
+import dev.vatuu.archiesarmy.client.network.PacketC2SLoopAnimation;
+import dev.vatuu.archiesarmy.client.network.PacketC2SRemoveAnimation;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -12,13 +18,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.util.Identifier;
-
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
-import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationContext;
-import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
-import dev.vatuu.archiesarmy.client.network.PacketC2SLoopAnimation;
-import dev.vatuu.archiesarmy.client.network.PacketC2SRemoveAnimation;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,23 +41,23 @@ public abstract class AnimatableEntityRenderer<T extends Entity, M extends Entit
 
         Map<AnimationContext, Boolean> queue = new HashMap<>();
 
-        ((EntityExt)entity).getClientAnimations().forEach((ctx, a) -> {
+        ((EntityExt) entity).getClientAnimations().forEach((ctx, a) -> {
             int animTime = entity.age - a;
             ctx.applyData(this.model, animTime, tickDelta);
-            if(ctx.shouldLoop())
+            if (ctx.shouldLoop())
                 queue.put(ctx, true);
-            else if(ctx.isDone())
+            else if (ctx.isDone())
                 queue.put(ctx, false);
         });
 
-        if(!queue.isEmpty()) {
+        if (!queue.isEmpty()) {
             queue.forEach((ctx, b) -> {
-                if(b) {
+                if (b) {
                     ((EntityExt) entity).getClientAnimations().replace(ctx, entity.age);
                     ArchiesArmyClient.INSTANCE.networkHandler.sendToServer(new PacketC2SLoopAnimation(entity, ctx.id, entity.age));
                     ctx.loop();
                 } else {
-                    ((EntityExt)entity).getClientAnimations().removeInt(ctx);
+                    ((EntityExt) entity).getClientAnimations().removeInt(ctx);
                     ArchiesArmyClient.INSTANCE.networkHandler.sendToServer(new PacketC2SRemoveAnimation(entity, ctx.id, false));
                 }
             });
@@ -92,7 +91,7 @@ public abstract class AnimatableEntityRenderer<T extends Entity, M extends Entit
     protected boolean hasLabel(T livingEntity) {
         double d = this.dispatcher.getSquaredDistanceToCamera(livingEntity);
         float f = livingEntity.isSneaky() ? 32.0F : 64.0F;
-        if (d >= (double)(f * f)) {
+        if (d >= (double) (f * f)) {
             return false;
         } else {
             MinecraftClient minecraftClient = MinecraftClient.getInstance();
@@ -103,7 +102,7 @@ public abstract class AnimatableEntityRenderer<T extends Entity, M extends Entit
                 AbstractTeam abstractTeam2 = clientPlayerEntity.getScoreboardTeam();
                 if (abstractTeam != null) {
                     AbstractTeam.VisibilityRule visibilityRule = abstractTeam.getNameTagVisibilityRule();
-                    switch(visibilityRule) {
+                    switch (visibilityRule) {
                         case ALWAYS:
                             return bl;
                         case NEVER:

@@ -1,9 +1,8 @@
 package dev.vatuu.archiesarmy.spells.goals;
 
-import net.minecraft.entity.ai.goal.Goal;
-
 import dev.vatuu.archiesarmy.spells.BetterSpellcastingIllagerEntity;
 import dev.vatuu.archiesarmy.spells.SpellRegistry;
+import net.minecraft.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
@@ -32,7 +31,7 @@ public class LookAtTargetGoal extends Goal {
 
     public void tick() {
         if (entity.getTarget() != null) {
-            entity.getLookControl().lookAt(entity.getTarget(), (float)entity.getBodyYawSpeed(), (float)entity.getLookPitchSpeed());
+            entity.getLookControl().lookAt(entity.getTarget(), (float) entity.getBodyYawSpeed(), (float) entity.getLookPitchSpeed());
         }
 
     }

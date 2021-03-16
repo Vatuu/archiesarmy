@@ -1,13 +1,12 @@
 package dev.vatuu.archiesarmy.client.entityrenderer;
 
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.GeometryLivingEntityRenderer;
 import dev.vatuu.archiesarmy.client.models.EnchanterEntityModel;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 public class EnchanterEntityRenderer extends GeometryLivingEntityRenderer<EnchanterEntity, EnchanterEntityModel> {
 

@@ -1,23 +1,21 @@
 package dev.vatuu.archiesarmy.client.extensions.mixins;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.render.entity.model.SkeletonEntityModel;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.util.Identifier;
-
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
-import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SkeletonEntityRenderer.class)
 public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<AbstractSkeletonEntity, SkeletonEntityModel<AbstractSkeletonEntity>> implements EnchantableEntityRenderer<AbstractSkeletonEntity> {
@@ -37,7 +35,7 @@ public abstract class SkeletonEntityRendererMixin extends BipedEntityRenderer<Ab
 
     @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
     public void getTexture(AbstractSkeletonEntity e, CallbackInfoReturnable<Identifier> info) {
-        if(((LivingEntityExt)e).isEnchanted())
+        if (((LivingEntityExt) e).isEnchanted())
             info.setReturnValue(this.getEnchantedTexture(e));
     }
 

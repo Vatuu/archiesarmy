@@ -1,10 +1,9 @@
 package dev.vatuu.archiesarmy.registries;
 
+import dev.vatuu.archiesarmy.ArchiesArmy;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import dev.vatuu.archiesarmy.ArchiesArmy;
 
 public class Sounds {
 

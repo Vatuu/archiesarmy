@@ -1,23 +1,21 @@
 package dev.vatuu.archiesarmy.client.extensions.mixins;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
+import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
+import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import net.minecraft.client.render.entity.CreeperEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.CreeperEntityModel;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.Identifier;
-
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.client.extensions.EnchantableEntityRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
-import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
-import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CreeperEntityRenderer.class)
 public abstract class CreeperEntityRendererMixin extends MobEntityRenderer<CreeperEntity, CreeperEntityModel<CreeperEntity>> implements EnchantableEntityRenderer<CreeperEntity> {
@@ -37,7 +35,7 @@ public abstract class CreeperEntityRendererMixin extends MobEntityRenderer<Creep
 
     @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
     public void getTexture(CreeperEntity e, CallbackInfoReturnable<Identifier> info) {
-        if(((LivingEntityExt)e).isEnchanted())
+        if (((LivingEntityExt) e).isEnchanted())
             info.setReturnValue(this.getEnchantedTexture(e));
     }
 

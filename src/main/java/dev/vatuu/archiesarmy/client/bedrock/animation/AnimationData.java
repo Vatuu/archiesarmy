@@ -1,82 +1,59 @@
 package dev.vatuu.archiesarmy.client.bedrock.animation;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
-
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.stream.JsonReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 public class AnimationData {
 
     public static final String FORMAT_VERSION = "1.8.0";
 
-    public boolean shouldReset, loop = false;
+    private final Either<String, Boolean> loop;
+    private final float startDelay, loopDelay, animTimeUpdate, blendWeight;
+    private final boolean override;
 
-    private final Map<String, AnimationBone> data;
-    public final double length;
+    private final Map<String, AnimationBone> bones;
 
-    public AnimationData(Map<String, AnimationBone> data, double length) {
-        this.data = data;
-        this.length = length;
+    private final float animationLength;
+
+    private AnimationData(Either<String, Boolean> loop, float startDelay, float loopDelay,
+                          float animTimeUpdate, float blendWeight, boolean override,
+                          Map<String, AnimationBone> bones, float animTime) {
+        this.loop = loop;
+        this.startDelay = startDelay; this.loopDelay = loopDelay; this.animTimeUpdate = animTimeUpdate; this.blendWeight = blendWeight;
+        this.override = override;
+        this.bones = bones;
+
+        if(animTime == -1)
+            this.animationLength = Collections.max(bones.values(), (b1, b2) -> Float.compare(b1.getLastKeyFrame(), b2.getLastKeyFrame())).getLastKeyFrame();
+        else
+            this.animationLength = animTime;
     }
 
-    public Map<String, AnimationBone> getData() {
-        return data;
+    public Map<String, AnimationBone> getBones() {
+        return bones;
     }
 
-    //TODO USE INTERNAL RESOURCE MANAGER
-    public static AnimationData load(ResourceManager resourceManager, Identifier identifier) {
-        try {
-            Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(identifier);
-
-            AnimationData data;
-            try(JsonReader reader = ArchiesArmyClient.GSON_CLIENT.newJsonReader(new InputStreamReader(resource.getInputStream()))) {
-                data = ArchiesArmyClient.GSON_CLIENT.fromJson(reader, AnimationData.class);
-            } catch(JsonParseException e) {
-                System.out.println("Failed to parse model json!");
-                e.printStackTrace();
-                return ArchiesArmyClient.INSTANCE.animationManager.getAnimationData(AnimationManager.MISSING_IDENTIFIER);
-            }
-
-            return data;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return ArchiesArmyClient.INSTANCE.animationManager.getAnimationData(AnimationManager.MISSING_IDENTIFIER);
-        }
+    public float getAnimationLength() {
+        return animationLength;
     }
 
-    public static class Deserializer implements JsonDeserializer<AnimationData> {
-
-        @Override
-        public AnimationData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject obj = ((Map.Entry<String, JsonElement>)json.getAsJsonObject().get("animations").getAsJsonObject().entrySet().toArray()[0]).getValue().getAsJsonObject();
-
-            double length = obj.get("animation_length").getAsDouble();
-
-            Map<String, AnimationBone> data = new HashMap<>();
-            obj.get("bones").getAsJsonObject().entrySet().forEach(e -> {
-                AnimationBone bone = ArchiesArmyClient.GSON_CLIENT.fromJson(e.getValue(), AnimationBone.class);
-                data.put(e.getKey(), bone);
-            });
-
-            AnimationData value = new AnimationData(data, length);
-            value.loop = obj.has("loop") && obj.get("loop").getAsBoolean();
-            value.shouldReset = obj.has("override_previous_animation") && obj.get("override_previous_animation").getAsBoolean();
-
-            return value;
-        }
+    public boolean shouldLoop() {
+        return loop.left().isPresent() || loop.right().get();
     }
+
+    public static Codec<AnimationData> CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codec.either(Codec.STRING, Codec.BOOL).optionalFieldOf("loop", Either.right(false)).forGetter((AnimationData o) -> o.loop),
+            Codec.FLOAT.optionalFieldOf("start_delay", 0F).forGetter((AnimationData o) -> o.startDelay),
+            Codec.FLOAT.optionalFieldOf("loop_delay", 0F).forGetter((AnimationData o) -> o.loopDelay),
+            Codec.FLOAT.optionalFieldOf("anim_time_update", 0F).forGetter((AnimationData o) -> o.animTimeUpdate),
+            Codec.FLOAT.optionalFieldOf("blend_weight", 0F).forGetter((AnimationData o) -> o.blendWeight),
+            Codec.BOOL.optionalFieldOf("override_previous_animation", false).forGetter((AnimationData o) -> o.override),
+            Codec.unboundedMap(Codec.STRING, AnimationBone.CODEC).optionalFieldOf("bones", ImmutableMap.of()).forGetter((AnimationData o) -> o.bones),
+            Codec.FLOAT.optionalFieldOf("animation_length", -1F).forGetter((AnimationData o) -> o.animationLength)
+    ).apply(i, AnimationData::new));
 }

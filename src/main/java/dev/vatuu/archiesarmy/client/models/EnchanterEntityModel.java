@@ -1,12 +1,11 @@
 package dev.vatuu.archiesarmy.client.models;
 
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.client.bedrock.models.EntityGeometryModel;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 public class EnchanterEntityModel extends EntityGeometryModel<EnchanterEntity> {
 
@@ -18,8 +17,8 @@ public class EnchanterEntityModel extends EntityGeometryModel<EnchanterEntity> {
 
     @Override
     public void setAngles(EnchanterEntity e, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
-        getModelData().getBone("left_arm").visible = false;
-        getModelData().getBone("right_arm").visible = false;
+        getModelData().getBone("left_arm").setVisible(false);
+        getModelData().getBone("right_arm").setVisible(false);
 
         getModelData().getBone("head").setRotation(headPitch * 0.017453292F, headYaw * 0.017453292F, 0.0F, false);
 

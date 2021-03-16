@@ -1,5 +1,7 @@
 package dev.vatuu.archiesarmy.entities;
 
+import dev.vatuu.archiesarmy.ArchiesArmy;
+import dev.vatuu.archiesarmy.extensions.EntityExt;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
@@ -10,9 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-
-import dev.vatuu.archiesarmy.ArchiesArmy;
-import dev.vatuu.archiesarmy.extensions.EntityExt;
 
 public class ArchIllagerEntity extends HostileEntity {
 
@@ -34,10 +33,10 @@ public class ArchIllagerEntity extends HostileEntity {
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(!((EntityExt)this).getServerAnimationData().isEmpty()) {
-            ((EntityExt)this).removeAnimation(ArchiesArmy.id("animations/entities/arch_illager.animation"), false);
+        if (!((EntityExt) this).getServerAnimationData().isEmpty()) {
+            ((EntityExt) this).removeAnimation(ArchiesArmy.id("animations/entities/arch_illager.animation"), false);
         } else
-            ((EntityExt)this).addAnimation(ArchiesArmy.id("animations/entities/arch_illager.animation"), false);
+            ((EntityExt) this).addAnimation(ArchiesArmy.id("animations/entities/arch_illager.animation"), false);
         return ActionResult.SUCCESS;
     }
 }

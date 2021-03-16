@@ -1,102 +1,83 @@
 package dev.vatuu.archiesarmy.client.bedrock.animation;
 
+import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.vatuu.archiesarmy.util.Codecs;
+import dev.vatuu.archiesarmy.util.Transformation;
 import net.minecraft.client.util.math.Vector3f;
 
-import dev.vatuu.archiesarmy.util.Transformation;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 public class AnimationBone {
 
-    public Map<Double, Vector3f> rotationData, translationData, scaleData;
+    private final String relativeTo;
+    public final Map<Float, Vector3f> rotationData, positionData, scaleData;
+
     public boolean hasRotation, hasTranslation, hasScale = false;
 
-    public boolean hasDataForFrame(double timestamp, Transformation type) {
-        switch(type) {
+    private AnimationBone(String relativeTo, Map<Float, Vector3f> position, Map<Float, Vector3f> rotation, Map<Float, Vector3f> scale) {
+        this.relativeTo = relativeTo;
+        this.positionData = position; this.rotationData = rotation; this.scaleData = scale;
+
+        if(!positionData.isEmpty())
+            this.hasTranslation = true;
+        if(!rotationData.isEmpty())
+            this.hasTranslation = true;
+        if(!scaleData.isEmpty())
+            this.hasTranslation = true;
+    }
+
+    public boolean hasDataForFrame(float timestamp, Transformation type) {
+        switch (type) {
+            case POSITION:
+                return hasTranslation && positionData.containsKey(timestamp);
             case ROTATION:
                 return hasRotation && rotationData.containsKey(timestamp);
-            case TRANSLATION:
-                return hasTranslation && translationData.containsKey(timestamp);
             case SCALE:
                 return hasScale && scaleData.containsKey(timestamp);
         }
         return false;
     }
 
-    public Vector3f getDataForFrame(double timestamp, Transformation type) {
-        switch(type) {
+    public Vector3f getDataForFrame(float timestamp, Transformation type) {
+        switch (type) {
+            case POSITION:
+                return positionData.get(timestamp);
             case ROTATION:
                 return rotationData.get(timestamp);
-            case TRANSLATION:
-                return translationData.get(timestamp);
             case SCALE:
                 return scaleData.get(timestamp);
         }
         return new Vector3f();
     }
 
+    public float getLastKeyFrame() {
+        float keyframe = 0;
 
-    public void setRotation(Map<Double, Vector3f> data) {
-        this.hasRotation = true;
-        this.rotationData = data;
-    }
-
-    public void setTranslation(Map<Double, Vector3f> data) {
-        this.hasTranslation = true;
-        this.translationData = data;
-    }
-
-    public void setScale(Map<Double, Vector3f> data) {
-        this.hasScale = true;
-        this.scaleData = data;
-    }
-
-    public static class Deserializer implements JsonDeserializer<AnimationBone> {
-
-        @Override
-        public AnimationBone deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject obj = json.getAsJsonObject();
-            AnimationBone bone = new AnimationBone();
-
-            if(obj.has("rotation")) {
-                Map<Double, Vector3f> data = new HashMap<>();
-                obj.get("rotation").getAsJsonObject().entrySet().forEach(e -> {
-                    double timestamp = Double.parseDouble(e.getKey());
-                    JsonArray array = e.getValue().getAsJsonArray();
-                    data.put(timestamp, new Vector3f(array.get(0).getAsFloat(), array.get(1).getAsFloat(), array.get(2).getAsFloat()));
-                });
-                bone.setRotation(data);
-            }
-
-            if(obj.has("position")) {
-                Map<Double, Vector3f> data = new HashMap<>();
-                obj.get("position").getAsJsonObject().entrySet().forEach(e -> {
-                    double timestamp = Double.parseDouble(e.getKey());
-                    JsonArray array = e.getValue().getAsJsonArray();
-                    data.put(timestamp, new Vector3f(array.get(0).getAsFloat(), array.get(1).getAsFloat(), array.get(2).getAsFloat()));
-                });
-                bone.setTranslation(data);
-            }
-
-            if(obj.has("scale")) {
-                Map<Double, Vector3f> data = new HashMap<>();
-                obj.get("scale").getAsJsonObject().entrySet().forEach(e -> {
-                    double timestamp = Double.parseDouble(e.getKey());
-                    JsonArray array = e.getValue().getAsJsonArray();
-                    data.put(timestamp, new Vector3f(array.get(0).getAsFloat(), array.get(1).getAsFloat(), array.get(2).getAsFloat()));
-                });
-                bone.setScale(data);
-            }
-
-            return bone;
+        if(!positionData.isEmpty()) {
+            float last = Collections.max(positionData.keySet(), Float::compareTo);
+            keyframe = Math.max(last, keyframe);
         }
+
+        if(!rotationData.isEmpty()) {
+            float last = Collections.max(rotationData.keySet(), Float::compareTo);
+            keyframe = Math.max(last, keyframe);
+        }
+
+        if(!scaleData.isEmpty()) {
+            float last = Collections.max(scaleData.keySet(), Float::compareTo);
+            keyframe = Math.max(last, keyframe);
+        }
+
+        return keyframe;
     }
+
+    public static Codec<AnimationBone> CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codec.STRING.optionalFieldOf("relative_to", "").forGetter((AnimationBone o) -> o.relativeTo),
+            Codec.unboundedMap(Codec.STRING.xmap(Float::parseFloat, String::valueOf), Codecs.VEC_3F).optionalFieldOf("position", ImmutableMap.of()).forGetter((AnimationBone o) -> o.positionData),
+            Codec.unboundedMap(Codec.STRING.xmap(Float::parseFloat, String::valueOf), Codecs.VEC_3F).optionalFieldOf("rotation", ImmutableMap.of()).forGetter((AnimationBone o) -> o.rotationData),
+            Codec.unboundedMap(Codec.STRING.xmap(Float::parseFloat, String::valueOf), Codecs.VEC_3F).optionalFieldOf("scale", ImmutableMap.of()).forGetter((AnimationBone o) -> o.scaleData)
+    ).apply(i, AnimationBone::new));
 }

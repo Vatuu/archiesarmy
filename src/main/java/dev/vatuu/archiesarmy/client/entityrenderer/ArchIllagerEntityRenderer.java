@@ -1,12 +1,11 @@
 package dev.vatuu.archiesarmy.client.entityrenderer;
 
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.util.Identifier;
-
 import dev.vatuu.archiesarmy.ArchiesArmy;
 import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.AnimatableEntityRenderer;
 import dev.vatuu.archiesarmy.client.models.ArchieEntityModel;
 import dev.vatuu.archiesarmy.entities.ArchIllagerEntity;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.util.Identifier;
 
 public class ArchIllagerEntityRenderer extends AnimatableEntityRenderer<ArchIllagerEntity, ArchieEntityModel> {
 
