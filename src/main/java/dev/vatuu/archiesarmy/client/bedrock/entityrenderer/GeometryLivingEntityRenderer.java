@@ -9,6 +9,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
@@ -47,7 +48,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
     protected RenderLayer getRenderLayer(T entity, boolean showBody, boolean translucent, boolean bl) {
         Identifier identifier = this.getTexture(entity);
         if (translucent) {
-            return RenderLayer.getItemEntityTranslucentCull(identifier);
+            return RenderLayer.getEntityTranslucent(identifier);
         } else if (showBody) {
             return this.model.getLayer(identifier);
         } else {

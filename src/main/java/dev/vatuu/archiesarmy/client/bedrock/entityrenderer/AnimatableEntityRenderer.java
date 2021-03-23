@@ -14,6 +14,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.AbstractTeam;
@@ -82,7 +83,7 @@ public abstract class AnimatableEntityRenderer<T extends Entity, M extends Entit
     protected RenderLayer getRenderLayer(T entity, boolean translucent, boolean bl) {
         Identifier identifier = this.getTexture(entity);
         if (translucent)
-            return RenderLayer.getItemEntityTranslucentCull(identifier);
+            return RenderLayer.getEntityTranslucent(identifier);
         else
             return bl ? RenderLayer.getOutline(identifier) : null;
     }

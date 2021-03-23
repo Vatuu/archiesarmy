@@ -9,6 +9,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.ShulkerEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -48,13 +51,17 @@ public class GeometryObject {
         return bones.get(part);
     }
 
-
-    public List<GeometryBone> getRootBones() {
-        return bones.values().stream().filter(b -> b.parent.equals("")).collect(Collectors.toList());
-    }
-
     public List<GeometryBone> getAllBones() {
         return Lists.newArrayList(bones.values());
+    }
+
+
+    public void render(MatrixStack stack, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
+        if(debugBoundingBox) {
+            //TODO Render Bounding Box
+        }
+
+        bones.values().stream().filter(b -> b.parent.equals("")).forEach(b -> b.render(stack, consumer, light, overlay, red, green, blue, alpha));
     }
 
     public static final Codec<GeometryObject> CODEC = RecordCodecBuilder.create(i -> i.group(

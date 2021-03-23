@@ -7,6 +7,7 @@ import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationData;
 import dev.vatuu.archiesarmy.client.bedrock.animation.AnimationManager;
 import dev.vatuu.archiesarmy.client.bedrock.geometry.GeometryManager;
 import dev.vatuu.archiesarmy.client.bedrock.geometry.GeometryObject;
+import dev.vatuu.archiesarmy.client.bedrock.molang.MolangParser;
 import dev.vatuu.archiesarmy.client.entityrenderer.EntityRenderer;
 import dev.vatuu.archiesarmy.client.network.ClientNetworkHandler;
 import net.fabricmc.api.ClientModInitializer;
@@ -38,5 +39,7 @@ public class ArchiesArmyClient implements ClientModInitializer {
         EntityRenderer.register();
 
         networkHandler = new ClientNetworkHandler();
+
+        MolangParser.init();
     }
 }

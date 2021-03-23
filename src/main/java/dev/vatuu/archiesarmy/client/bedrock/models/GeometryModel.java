@@ -23,19 +23,16 @@ public abstract class GeometryModel {
         return this.layerFactory.apply(texture);
     }
 
-    public GeometryObject getModelData() {
+    public GeometryObject getGeometry() {
         return ArchiesArmyClient.INSTANCE.geometryManager.getModelData(data);
     }
 
     public void renderModel(MatrixStack stack, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
         preRender(stack, consumer, light, overlay, red, green, blue, alpha);
-        getModelData().getRootBones().forEach(b -> b.render(stack, consumer, light, overlay, red, green, blue, alpha));
+        getGeometry().render(stack, consumer, light, overlay, red, green, blue, alpha);
         postRender(stack, consumer, light, overlay, red, green, blue, alpha);
     }
 
-    public void preRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-    }
-
-    public void postRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-    }
+    public void preRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) { }
+    public void postRender(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) { }
 }

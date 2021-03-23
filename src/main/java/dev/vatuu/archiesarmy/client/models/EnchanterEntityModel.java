@@ -17,12 +17,12 @@ public class EnchanterEntityModel extends EntityGeometryModel<EnchanterEntity> {
 
     @Override
     public void setAngles(EnchanterEntity e, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
-        getModelData().getBone("left_arm").setVisible(false);
-        getModelData().getBone("right_arm").setVisible(false);
+        getGeometry().getBone("left_arm").setVisible(false);
+        getGeometry().getBone("right_arm").setVisible(false);
 
-        getModelData().getBone("head").setRotation(headPitch * 0.017453292F, headYaw * 0.017453292F, 0.0F, false);
+        getGeometry().getBone("head").setRotation(headPitch * 0.017453292F, headYaw * 0.017453292F, 0.0F, false);
 
-        getModelData().getBone("left_leg").setRotation(MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance * 0.5F, 0.0F, 0.0F, false);
-        getModelData().getBone("right_leg").setRotation(MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance * 0.5F, 0.0F, 0.0F, false);
+        getGeometry().getBone("left_leg").setRotation(MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance * 0.5F, 0.0F, 0.0F, false);
+        getGeometry().getBone("right_leg").setRotation(MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance * 0.5F, 0.0F, 0.0F, false);
     }
 }

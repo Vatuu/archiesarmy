@@ -14,6 +14,5 @@ public abstract class EntityGeometryModel<T extends Entity> extends GeometryMode
 
     public abstract void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch);
 
-    public void animateModel(T entity, float limbAngle, float limbDistance, float tickDelta) {
-    }
+    public void animateModel(T entity, float limbAngle, float limbDistance, float tickDelta) { }
 }

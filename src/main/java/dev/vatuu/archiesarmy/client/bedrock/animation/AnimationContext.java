@@ -42,17 +42,17 @@ public class AnimationContext {
 
             if (bone.hasRotation) {
                 Vector3f target = applyTransformation(bone, id, Transformation.ROTATION, time, tickDelta);
-                model.getModelData().getBone(id).addRotation(target.getX(), target.getY(), target.getZ(), true);
+                model.getGeometry().getBone(id).addRotation(target.getX(), target.getY(), target.getZ(), true);
             }
 
             if (bone.hasTranslation) {
                 Vector3f target = applyTransformation(bone, id, Transformation.POSITION, time, tickDelta);
-                model.getModelData().getBone(id).addTranslation(target.getX(), target.getY(), target.getZ());
+                model.getGeometry().getBone(id).addTranslation(target.getX(), target.getY(), target.getZ());
             }
 
             if (bone.hasScale) {
                 Vector3f target = applyTransformation(bone, id, Transformation.SCALE, time, tickDelta);
-                model.getModelData().getBone(id).addScaling(target.getX(), target.getY(), target.getZ());
+                model.getGeometry().getBone(id).addScaling(target.getX(), target.getY(), target.getZ());
             }
         }
 
