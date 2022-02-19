@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.vatuu.archiesarmy.util.Codecs;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public final class GeometryBone {
 
     public final String name, parent;
-    private final Vector3f pivot, rotation;
+    private final Vec3f pivot, rotation;
     private final boolean mirror;
     private final float inflate;
     private final boolean debug;
@@ -25,11 +25,11 @@ public final class GeometryBone {
 
     private boolean visible = true;
 
-    private Vector3f additiveRotation = new Vector3f(0, 0, 0);
-    private Vector3f additiveTranslation = new Vector3f(0, 0, 0);
-    private Vector3f additiveScaling = new Vector3f(1, 1, 1);
+    private Vec3f additiveRotation = new Vec3f(0, 0, 0);
+    private Vec3f additiveTranslation = new Vec3f(0, 0, 0);
+    private Vec3f additiveScaling = new Vec3f(1, 1, 1);
 
-    private GeometryBone(String id, String parent, Vector3f pivot, Vector3f rotation,
+    private GeometryBone(String id, String parent, Vec3f pivot, Vec3f rotation,
                          boolean mirror, float inflate, boolean debug, int renderGroup,
                          List<GeometryCube> cubes) {
         this.name = id;
@@ -49,24 +49,24 @@ public final class GeometryBone {
 
     public void setRotation(float pitch, float yaw, float roll, boolean degrees) {
         if (!degrees)
-            this.additiveRotation = new Vector3f((float) Math.toDegrees(pitch), (float) Math.toDegrees(yaw), (float) Math.toDegrees(roll));
+            this.additiveRotation = new Vec3f((float) Math.toDegrees(pitch), (float) Math.toDegrees(yaw), (float) Math.toDegrees(roll));
         else
-            this.additiveRotation = new Vector3f(pitch, yaw, roll);
+            this.additiveRotation = new Vec3f(pitch, yaw, roll);
     }
 
     public void addRotation(float pitch, float yaw, float roll, boolean degrees) {
         if (!degrees)
-            this.additiveRotation.add(new Vector3f((float) Math.toDegrees(pitch), (float) Math.toDegrees(yaw), (float) Math.toDegrees(roll)));
+            this.additiveRotation.add(new Vec3f((float) Math.toDegrees(pitch), (float) Math.toDegrees(yaw), (float) Math.toDegrees(roll)));
         else
-            this.additiveRotation.add(new Vector3f(pitch, yaw, roll));
+            this.additiveRotation.add(new Vec3f(pitch, yaw, roll));
     }
 
     public void addTranslation(float x, float y, float z) {
-        this.additiveTranslation.add(new Vector3f(x, y, z));
+        this.additiveTranslation.add(new Vec3f(x, y, z));
     }
 
     public void addScaling(float x, float y, float z) {
-        this.additiveScaling.add(new Vector3f(x, y, z));
+        this.additiveScaling.add(new Vec3f(x, y, z));
     }
 
     public void setTextureSize(int width, int height) {
@@ -87,9 +87,9 @@ public final class GeometryBone {
         stack.push();
         if (!this.elements.isEmpty() || !this.children.isEmpty()) {
             stack.translate(pivot.getX() / 16D, pivot.getY() / 16D, pivot.getZ() / 16D);
-            stack.multiply(Vector3f.NEGATIVE_Z.getDegreesQuaternion(rotation.getZ() + additiveRotation.getZ()));
-            stack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation.getY() + additiveRotation.getY()));
-            stack.multiply(Vector3f.NEGATIVE_X.getDegreesQuaternion(rotation.getX() + additiveRotation.getX()));
+            stack.multiply(Vec3f.NEGATIVE_Z.getDegreesQuaternion(rotation.getZ() + additiveRotation.getZ()));
+            stack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(rotation.getY() + additiveRotation.getY()));
+            stack.multiply(Vec3f.NEGATIVE_X.getDegreesQuaternion(rotation.getX() + additiveRotation.getX()));
             stack.translate(-(pivot.getX()) / 16D, -(pivot.getY() / 16D), -(pivot.getZ() / 16D));
 
             stack.translate(additiveTranslation.getX(), additiveTranslation.getY(), additiveTranslation.getZ());
@@ -111,8 +111,8 @@ public final class GeometryBone {
     public static final Codec<GeometryBone> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.STRING.fieldOf("name").forGetter((GeometryBone o) -> o.name),
             Codec.STRING.optionalFieldOf("parent", "").forGetter((GeometryBone o) -> o.parent),
-            Codecs.VEC_3F.optionalFieldOf("pivot", new Vector3f(0, 0, 0)).forGetter((GeometryBone o) -> o.pivot),
-            Codecs.VEC_3F.optionalFieldOf("rotation", new Vector3f(0, 0, 0)).forGetter((GeometryBone o) -> o.rotation),
+            Codecs.VEC_3F.optionalFieldOf("pivot", Vec3f.ZERO).forGetter((GeometryBone o) -> o.pivot),
+            Codecs.VEC_3F.optionalFieldOf("rotation", Vec3f.ZERO).forGetter((GeometryBone o) -> o.rotation),
             Codec.BOOL.optionalFieldOf("mirror", false).forGetter((GeometryBone o) -> o.mirror),
             Codec.FLOAT.optionalFieldOf("inflate", 0.0F).forGetter((GeometryBone o) -> o.inflate),
             Codec.BOOL.optionalFieldOf("debug", false).forGetter((GeometryBone o) -> o.debug),

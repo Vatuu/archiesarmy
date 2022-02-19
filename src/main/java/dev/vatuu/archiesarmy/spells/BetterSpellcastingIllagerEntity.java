@@ -8,7 +8,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.IllagerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -33,13 +33,13 @@ public abstract class BetterSpellcastingIllagerEntity extends IllagerEntity {
         this.dataTracker.startTracking(SPELL, SpellRegistry.SPELL_NONE);
     }
 
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromTag(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
         this.spellTicks = tag.getInt("SpellTicks");
     }
 
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToTag(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putInt("SpellTicks", this.spellTicks);
     }
 

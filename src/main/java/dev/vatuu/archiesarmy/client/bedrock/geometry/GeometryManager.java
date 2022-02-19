@@ -56,7 +56,7 @@ public class GeometryManager implements SimpleSynchronousResourceReloadListener,
     private GeometryObject loadGeometryData(Identifier identifier) {
         try {
             Resource resource = MinecraftClient.getInstance().getResourceManager().getResource(identifier);
-            JsonObject e = new JsonParser().parse(new InputStreamReader(resource.getInputStream())).getAsJsonObject();
+            JsonObject e = JsonParser.parseReader(new InputStreamReader(resource.getInputStream())).getAsJsonObject();
 
             if(!e.has("format_version") || !e.get("format_version").getAsString().equals(FORMAT_VERSION))
                 throw new JsonParseException("Unable to verify Format Version!");
@@ -90,7 +90,7 @@ public class GeometryManager implements SimpleSynchronousResourceReloadListener,
     }
 
     @Override
-    public void apply(ResourceManager manager) {
+    public void reload(ResourceManager manager) {
         Lists.newArrayList(this.modelData.keySet()).stream().filter(i -> !i.equals(MISSING_IDENTIFIER)).forEach(k -> modelData.replace(k, loadGeometryData(k)));
         modelData.put(MISSING_IDENTIFIER, loadMissingData());
     }
@@ -104,7 +104,7 @@ public class GeometryManager implements SimpleSynchronousResourceReloadListener,
         if(missing != null)
             return missing;
 
-        JsonObject e = new JsonParser().parse(new StringReader(MISSING_MODEL_DATA)).getAsJsonObject();
+        JsonObject e = JsonParser.parseReader(new StringReader(MISSING_MODEL_DATA)).getAsJsonObject();
         List<GeometryObject> list = JsonOps.INSTANCE.withDecoder(GeometryObject.CODEC.listOf())
                 .apply(e.get(GEOMETRY_ID.toString())).resultOrPartial(s -> { throw new JsonParseException(s); })
                 .get()

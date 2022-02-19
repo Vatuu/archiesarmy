@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "dev.vatuu.archiesarmy.client.extensions.mixins",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "client": [
     "CreeperEntityRendererMixin",
     "LivingEntityRendererMixin",

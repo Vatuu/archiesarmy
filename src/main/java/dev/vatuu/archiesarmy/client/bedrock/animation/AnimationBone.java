@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.vatuu.archiesarmy.util.Codecs;
 import dev.vatuu.archiesarmy.util.Transformation;
-import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.Collections;
 import java.util.Map;
@@ -13,11 +13,11 @@ import java.util.Map;
 public class AnimationBone {
 
     private final String relativeTo;
-    public final Map<Float, Vector3f> rotationData, positionData, scaleData;
+    public final Map<Float, Vec3f> rotationData, positionData, scaleData;
 
     public boolean hasRotation, hasTranslation, hasScale = false;
 
-    private AnimationBone(String relativeTo, Map<Float, Vector3f> position, Map<Float, Vector3f> rotation, Map<Float, Vector3f> scale) {
+    private AnimationBone(String relativeTo, Map<Float, Vec3f> position, Map<Float, Vec3f> rotation, Map<Float, Vec3f> scale) {
         this.relativeTo = relativeTo;
         this.positionData = position; this.rotationData = rotation; this.scaleData = scale;
 
@@ -41,7 +41,7 @@ public class AnimationBone {
         return false;
     }
 
-    public Vector3f getDataForFrame(float timestamp, Transformation type) {
+    public Vec3f getDataForFrame(float timestamp, Transformation type) {
         switch (type) {
             case POSITION:
                 return positionData.get(timestamp);
@@ -50,7 +50,7 @@ public class AnimationBone {
             case SCALE:
                 return scaleData.get(timestamp);
         }
-        return new Vector3f();
+        return new Vec3f();
     }
 
     public float getLastKeyFrame() {

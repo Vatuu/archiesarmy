@@ -23,8 +23,7 @@ public class PacketS2CAnimationControl implements AbstractPacket {
         return ID;
     }
 
-    public PacketS2CAnimationControl() {
-    }
+    public PacketS2CAnimationControl() { }
 
     public PacketS2CAnimationControl(AnimationCommand command, Entity targetEntity, Identifier animationId, boolean affectAll) {
         this.command = command;
@@ -43,7 +42,7 @@ public class PacketS2CAnimationControl implements AbstractPacket {
     @Override
     public void encode(PacketByteBuf buffer) {
         buffer.writeEnumConstant(command);
-        buffer.writeVarInt(targetEntity.getEntityId());
+        buffer.writeVarInt(targetEntity.getId());
         buffer.writeIdentifier(animationId);
         if (command == AnimationCommand.LOAD_NBT)
             buffer.writeVarInt(animAge);

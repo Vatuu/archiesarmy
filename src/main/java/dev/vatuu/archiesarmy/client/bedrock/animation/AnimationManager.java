@@ -88,7 +88,7 @@ public class AnimationManager implements SimpleSynchronousResourceReloadListener
     }
 
     @Override
-    public void apply(ResourceManager manager) {
+    public void reload(ResourceManager manager) {
         Lists.newArrayList(this.animData.keySet()).stream().filter(i -> !i.equals(MISSING_IDENTIFIER)).forEach(k -> animData.replace(k, loadAnimationData(k)));
         animData.put(MISSING_IDENTIFIER, loadMissingData());
     }

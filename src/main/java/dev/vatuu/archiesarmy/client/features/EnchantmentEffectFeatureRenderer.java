@@ -1,6 +1,7 @@
 package dev.vatuu.archiesarmy.client.features;
 
 import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
+import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -21,9 +22,8 @@ public class EnchantmentEffectFeatureRenderer<T extends LivingEntity, M extends 
     public EnchantmentEffectFeatureRenderer(FeatureRendererContext<T, M> featureRendererContext, M model) {
         super(featureRendererContext);
         this.model = model;
-        if (model instanceof BipedEntityModel) {
-            BipedEntityModel overlay = (BipedEntityModel) model;
-            overlay.helmet.visible = overlay.leftArm.mirror = overlay.leftLeg.mirror = false;
+        if (model instanceof BipedEntityModel overlay) {
+            overlay.hat.visible = false;
         }
     }
 

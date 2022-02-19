@@ -17,7 +17,7 @@ public class EnchantingSpell extends Spell<EnchanterEntity> {
 
     public static final Identifier ID = ArchiesArmy.id("enchant");
 
-    private final TargetPredicate enchanterTargetPredicate = (new TargetPredicate()).setBaseMaxDistance(16.0D).includeInvulnerable().setPredicate(livingEntity -> EnchantingSpell.isEnchantable(livingEntity, false));
+    private final TargetPredicate enchanterTargetPredicate = TargetPredicate.DEFAULT.setBaseMaxDistance(16.0D).setPredicate(livingEntity -> EnchantingSpell.isEnchantable(livingEntity, false));
 
     public static boolean isEnchantable(LivingEntity target, boolean already) {
         return target != null &&

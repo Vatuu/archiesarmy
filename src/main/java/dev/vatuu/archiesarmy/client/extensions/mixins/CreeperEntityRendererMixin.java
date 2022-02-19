@@ -7,6 +7,7 @@ import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
 import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import net.minecraft.client.render.entity.CreeperEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.CreeperEntityModel;
 import net.minecraft.entity.mob.CreeperEntity;
@@ -23,14 +24,14 @@ public abstract class CreeperEntityRendererMixin extends MobEntityRenderer<Creep
     private static final Identifier ENCHANTED_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/creeper.png");
     private static final Identifier EMISSIVE_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/creeper_emissive.png");
 
-    public CreeperEntityRendererMixin(EntityRenderDispatcher entityRenderDispatcher, CreeperEntityModel<CreeperEntity> entityModel, float f) {
+    public CreeperEntityRendererMixin(EntityRendererFactory.Context entityRenderDispatcher, CreeperEntityModel<CreeperEntity> entityModel, float f) {
         super(entityRenderDispatcher, entityModel, f);
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void addFeatureRenderer(CallbackInfo info) {
-        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, new CreeperEntityModel<>(), this.getEmissiveTexture()));
-        this.addFeature(new EnchantmentEffectFeatureRenderer<>(this, new CreeperEntityModel<>()));
+        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, this.model, this.getEmissiveTexture()));
+        this.addFeature(new EnchantmentEffectFeatureRenderer<>(this, this.model));
     }
 
     @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)

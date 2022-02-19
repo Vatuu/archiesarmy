@@ -1,5 +1,6 @@
 package dev.vatuu.archiesarmy;
 
+import com.mojang.serialization.Codec;
 import dev.vatuu.archiesarmy.network.NetworkHandler;
 import dev.vatuu.archiesarmy.registries.Entities;
 import dev.vatuu.archiesarmy.registries.Items;

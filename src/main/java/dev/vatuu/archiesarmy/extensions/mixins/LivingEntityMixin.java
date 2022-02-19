@@ -7,7 +7,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -50,13 +50,13 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
         return dimensions;
     }
 
-    @Inject(method = "writeCustomDataToTag(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
-    public void injectWriteTagData(CompoundTag tag, CallbackInfo ci) {
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    public void injectWriteTagData(NbtCompound tag, CallbackInfo ci) {
         if (this.isEnchantable()) tag.putBoolean("Enchanted", this.isEnchanted());
     }
 
-    @Inject(method = "readCustomDataFromTag(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
-    public void injectReadTagData(CompoundTag tag, CallbackInfo ci) {
+    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+    public void injectReadTagData(NbtCompound tag, CallbackInfo ci) {
         if (this.isEnchantable()) this.setEnchanted(tag.getBoolean("Enchanted"));
     }
 }

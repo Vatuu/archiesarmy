@@ -14,6 +14,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -27,7 +28,7 @@ public abstract class AnimatableEntityRenderer<T extends Entity, M extends Entit
 
     private final M model;
 
-    protected AnimatableEntityRenderer(EntityRenderDispatcher dispatcher, M model, float shadowRadius) {
+    protected AnimatableEntityRenderer(EntityRendererFactory.Context dispatcher, M model, float shadowRadius) {
         super(dispatcher);
         this.model = model;
         this.shadowRadius = shadowRadius;

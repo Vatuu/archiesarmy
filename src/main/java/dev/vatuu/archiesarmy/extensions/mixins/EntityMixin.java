@@ -8,14 +8,15 @@ import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.util.Identifier;
@@ -113,30 +114,32 @@ public abstract class EntityMixin implements EntityExt, Nameable, CommandOutput 
                 (Entity) ((Object) this),
                 id,
                 all);
-        PlayerStream.all(this.getServer()).forEach(p -> ArchiesArmy.INSTANCE.networkHandler.sendToClient(p, packet));
+        PlayerLookup.all(this.getServer()).forEach(p -> ArchiesArmy.INSTANCE.networkHandler.sendToClient(p, packet));
 
     }
 
-    @Inject(method = "toTag", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putUuid(Ljava/lang/String;Ljava/util/UUID;)V", shift = At.Shift.AFTER))
-    public void toTagAnim(CompoundTag tag, CallbackInfoReturnable<CompoundTag> info) {
+    @Inject(method = "writeNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NbtCompound;putUuid(Ljava/lang/String;Ljava/util/UUID;)V", shift = At.Shift.AFTER))
+    public void toTagAnim(NbtCompound tag, CallbackInfoReturnable<NbtCompound> info) {
         if (!getServerAnimationData().isEmpty()) {
-            ListTag list = new ListTag();
+            NbtList list = new NbtList();
             getServerAnimationData().forEach((id, startAge) -> {
                 int animAge = this.age - startAge;
-                CompoundTag anim = new CompoundTag();
+                NbtCompound anim = new NbtCompound();
                 anim.putString("animation", id.toString());
                 anim.putInt("animAge", animAge);
                 list.add(anim);
             });
+            if(info.getReturnValue() == null)
+                info.setReturnValue(new NbtCompound());
             info.getReturnValue().put("animations", list);
         }
     }
 
-    @Inject(method = "fromTag", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setAir(I)V", shift = At.Shift.AFTER))
-    public void fromTagAnim(CompoundTag tag, CallbackInfo info) {
-        ListTag anim = tag.getList("animations", NbtType.COMPOUND);
+    @Inject(method = "readNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setAir(I)V", shift = At.Shift.AFTER))
+    public void fromTagAnim(NbtCompound tag, CallbackInfo info) {
+        NbtList anim = tag.getList("animations", NbtType.COMPOUND);
         anim.forEach(t -> {
-            CompoundTag data = (CompoundTag) t;
+            NbtCompound data = (NbtCompound) t;
             Identifier id = new Identifier(data.getString("animation"));
             int startAge = data.getInt("animAge");
             this.addAnimationNbt(id, startAge);

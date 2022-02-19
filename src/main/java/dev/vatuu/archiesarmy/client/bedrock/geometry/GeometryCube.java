@@ -6,8 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.vatuu.archiesarmy.util.Codecs;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.client.util.math.Vector4f;
 import net.minecraft.util.math.*;
 
 import java.util.List;
@@ -16,14 +14,14 @@ import java.util.stream.Stream;
 //TODO Per-Face UV
 public final class GeometryCube {
 
-    private final Vector3f origin, size, rotation, pivot;
+    private final Vec3f origin, size, rotation, pivot;
     private final float inflate;
     private final boolean mirror;
     private final float u, v;
 
     private Face[] faces;
 
-    private GeometryCube(Vector3f origin, Vector3f size, Vector3f rotation, Vector3f pivot, float inflate, boolean mirror, List<Float> uv) {
+    private GeometryCube(Vec3f origin, Vec3f size, Vec3f rotation, Vec3f pivot, float inflate, boolean mirror, List<Float> uv) {
         this.origin = origin;
         this.size = size;
         this.rotation = rotation;
@@ -37,19 +35,19 @@ public final class GeometryCube {
     public void defineFaces(int texWidth, int texHeight, float boneInflate) {
         float inflate = this.inflate + boneInflate;
 
-        Vector3f secondCorner = origin.copy();
+        Vec3f secondCorner = origin.copy();
         secondCorner.add(size);
 
         this.faces = new Face[6];
-        Vector3f inflatedMin = origin.copy();
-        inflatedMin.subtract(new Vector3f(inflate, inflate, inflate));
-        Vector3f inflatedMax = secondCorner.copy();
-        inflatedMax.add(new Vector3f(inflate, inflate, inflate));
+        Vec3f inflatedMin = origin.copy();
+        inflatedMin.subtract(new Vec3f(inflate, inflate, inflate));
+        Vec3f inflatedMax = secondCorner.copy();
+        inflatedMax.add(new Vec3f(inflate, inflate, inflate));
 
         if (mirror) {
             float x = inflatedMax.getX();
-            inflatedMax = new Vector3f(inflatedMin.getX(), inflatedMax.getY(), inflatedMax.getZ());
-            inflatedMin = new Vector3f(x, inflatedMin.getY(), inflatedMin.getZ());
+            inflatedMax = new Vec3f(inflatedMin.getX(), inflatedMax.getY(), inflatedMax.getZ());
+            inflatedMin = new Vec3f(x, inflatedMin.getY(), inflatedMin.getZ());
         }
 
         TexturedVertex[] vertices = new TexturedVertex[8];
@@ -88,11 +86,11 @@ public final class GeometryCube {
             stack.translate(-(pivot.getX() / 16F), -(pivot.getY() / 16F), -(pivot.getZ() / 16F));
         }
 
-        Matrix4f modelMatrix = stack.peek().getModel();
-        Matrix3f normalMatrix = stack.peek().getNormal();
+        Matrix4f modelMatrix = stack.peek().getPositionMatrix();
+        Matrix3f normalMatrix = stack.peek().getNormalMatrix();
 
         Stream.of(faces).forEach(f -> {
-            Vector3f normal = f.normal.copy();
+            Vec3f normal = f.normal.copy();
             normal.transform(normalMatrix);
 
             if (normal.getX() < 0)
@@ -120,10 +118,10 @@ public final class GeometryCube {
     }
 
     public static final Codec<GeometryCube> CODEC = RecordCodecBuilder.create(i -> i.group(
-            Codecs.VEC_3F.optionalFieldOf("origin", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.origin),
-            Codecs.VEC_3F.optionalFieldOf("size", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.size),
-            Codecs.VEC_3F.optionalFieldOf("rotation", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.rotation),
-            Codecs.VEC_3F.optionalFieldOf("pivot", new Vector3f(0, 0, 0)).forGetter((GeometryCube o) -> o.pivot),
+            Codecs.VEC_3F.optionalFieldOf("origin", new Vec3f(0, 0, 0)).forGetter((GeometryCube o) -> o.origin),
+            Codecs.VEC_3F.optionalFieldOf("size", new Vec3f(0, 0, 0)).forGetter((GeometryCube o) -> o.size),
+            Codecs.VEC_3F.optionalFieldOf("rotation", new Vec3f(0, 0, 0)).forGetter((GeometryCube o) -> o.rotation),
+            Codecs.VEC_3F.optionalFieldOf("pivot", new Vec3f(0, 0, 0)).forGetter((GeometryCube o) -> o.pivot),
             Codec.FLOAT.optionalFieldOf("inflate", 0F).forGetter((GeometryCube o) -> o.inflate),
             Codec.BOOL.optionalFieldOf("mirror", false).forGetter((GeometryCube o) -> o.mirror),
             Codec.FLOAT.listOf().optionalFieldOf("uv", Lists.newArrayList(0F, 0F)).forGetter((GeometryCube o) -> Lists.newArrayList(o.u, o.v))
@@ -131,7 +129,7 @@ public final class GeometryCube {
 
     private static final class Face {
         private final TexturedVertex[] vertices;
-        private final Vector3f normal;
+        private final Vec3f normal;
 
         public Face(TexturedVertex[] vertices, double u1, double v1, double u2, double v2, float squishU, float squishV, boolean mirror, Direction d) {
             this.vertices = vertices;
@@ -157,16 +155,7 @@ public final class GeometryCube {
         }
     }
 
-    private static final class TexturedVertex {
-        public final Vec3d pos;
-        public final double u, v;
-
-        public TexturedVertex(Vec3d pos, double u, double v) {
-            this.pos = pos;
-            this.u = u;
-            this.v = v;
-        }
-
+    private record TexturedVertex(Vec3d pos, double u, double v) {
         public TexturedVertex uvRemap(double u, double v) {
             return new TexturedVertex(this.pos, u, v);
         }

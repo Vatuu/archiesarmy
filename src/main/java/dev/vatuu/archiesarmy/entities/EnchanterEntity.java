@@ -15,9 +15,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -44,18 +44,18 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D);
     }
 
-    public void readCustomDataFromTag(CompoundTag tag) {
+    public void readCustomDataFromTag(NbtCompound tag) {
         super.readCustomDataFromTag(tag);
         enchantedEntities.clear();
-        ListTag list = tag.getList("Enchanting", NbtType.INT_ARRAY);
+        NbtList list = tag.getList("Enchanting", NbtType.INT_ARRAY);
         list.forEach(u -> enchantedEntities.add(NbtHelper.toUuid(u)));
     }
 
-    public void writeCustomDataToTag(CompoundTag tag) {
+    public void writeCustomDataToTag(NbtCompound tag) {
         super.writeCustomDataToTag(tag);
-        ListTag enchanting = new ListTag();
+        NbtList enchanting = new NbtList();
         for (int i = 0; i < enchantedEntities.size(); i++)
-            enchanting.addTag(i, NbtHelper.fromUuid(enchantedEntities.get(i)));
+            enchanting.add(i, NbtHelper.fromUuid(enchantedEntities.get(i)));
         tag.put("Enchanting", enchanting);
     }
 
@@ -69,7 +69,7 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.add(6, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
 
-        this.targetSelector.add(1, (new FollowTargetGoal<>(this, PlayerEntity.class, false)).setMaxTimeWithoutVisibility(100));
+        this.targetSelector.add(1, (new ActiveTargetGoal<>(this, PlayerEntity.class, false)).setMaxTimeWithoutVisibility(100));
     }
 
     public boolean isTeammate(Entity other) {
@@ -178,7 +178,7 @@ public class EnchanterEntity extends BetterSpellcastingIllagerEntity {
 
         public void tick() {
             if (entity.getEnchantingTarget() != null) {
-                entity.getLookControl().lookAt(entity.getEnchantingTarget(), (float) entity.getBodyYawSpeed(), (float) entity.getLookPitchSpeed());
+                entity.getLookControl().lookAt(entity.getEnchantingTarget(), (float) entity.getMaxLookYawChange(), (float) entity.getMaxLookPitchChange());
             } else super.tick();
         }
     }

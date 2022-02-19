@@ -5,6 +5,7 @@ import dev.vatuu.archiesarmy.client.bedrock.entityrenderer.GeometryLivingEntityR
 import dev.vatuu.archiesarmy.client.models.EnchanterEntityModel;
 import dev.vatuu.archiesarmy.entities.EnchanterEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -12,7 +13,7 @@ public class EnchanterEntityRenderer extends GeometryLivingEntityRenderer<Enchan
 
     private static final Identifier TEXTURE = ArchiesArmy.id("textures/entities/illagers/enchanter.png");
 
-    protected EnchanterEntityRenderer(EntityRenderDispatcher dispatcher, EnchanterEntityModel model, float shadowRadius) {
+    protected EnchanterEntityRenderer(EntityRendererFactory.Context dispatcher, EnchanterEntityModel model, float shadowRadius) {
         super(dispatcher, model, shadowRadius);
     }
 

@@ -1,13 +1,13 @@
 package dev.vatuu.archiesarmy.client.bedrock.animation;
 
 import com.google.common.collect.Lists;
+import com.mojang.datafixers.util.Pair;
 import dev.vatuu.archiesarmy.client.ArchiesArmyClient;
 import dev.vatuu.archiesarmy.client.bedrock.models.GeometryModel;
 import dev.vatuu.archiesarmy.util.Transformation;
-import dev.vatuu.archiesarmy.util.Tuple;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +18,9 @@ public class AnimationContext {
     public final Identifier id;
     private final AnimationData animation;
 
-    private final Map<Tuple<String, Transformation>, Vector3f> prevTransform = new HashMap<>();
-    private final Map<Tuple<String, Transformation>, List<Float>> keyframes = new HashMap<>();
-    private final Map<Tuple<String, Transformation>, float[]> currentTimestamp = new HashMap<>();
+    private final Map<Pair<String, Transformation>, Vec3f> prevTransform = new HashMap<>();
+    private final Map<Pair<String, Transformation>, List<Float>> keyframes = new HashMap<>();
+    private final Map<Pair<String, Transformation>, float[]> currentTimestamp = new HashMap<>();
 
     private boolean isPaused = false, isFinished = false;
 
@@ -41,17 +41,17 @@ public class AnimationContext {
             String id = entry.getKey();
 
             if (bone.hasRotation) {
-                Vector3f target = applyTransformation(bone, id, Transformation.ROTATION, time, tickDelta);
+                Vec3f target = applyTransformation(bone, id, Transformation.ROTATION, time, tickDelta);
                 model.getGeometry().getBone(id).addRotation(target.getX(), target.getY(), target.getZ(), true);
             }
 
             if (bone.hasTranslation) {
-                Vector3f target = applyTransformation(bone, id, Transformation.POSITION, time, tickDelta);
+                Vec3f target = applyTransformation(bone, id, Transformation.POSITION, time, tickDelta);
                 model.getGeometry().getBone(id).addTranslation(target.getX(), target.getY(), target.getZ());
             }
 
             if (bone.hasScale) {
-                Vector3f target = applyTransformation(bone, id, Transformation.SCALE, time, tickDelta);
+                Vec3f target = applyTransformation(bone, id, Transformation.SCALE, time, tickDelta);
                 model.getGeometry().getBone(id).addScaling(target.getX(), target.getY(), target.getZ());
             }
         }
@@ -73,8 +73,8 @@ public class AnimationContext {
         return !animation.shouldLoop() && isFinished;
     }
 
-    private Vector3f applyTransformation(AnimationBone bone, String id, Transformation type, float time, float tickDelta) {
-        Tuple<String, Transformation> key = new Tuple<>(id, type);
+    private Vec3f applyTransformation(AnimationBone bone, String id, Transformation type, float time, float tickDelta) {
+        Pair<String, Transformation> key = new Pair<>(id, type);
 
         float timestamp0 = currentTimestamp.get(key)[0];
         float timestamp1 = currentTimestamp.get(key)[1];
@@ -83,34 +83,34 @@ public class AnimationContext {
             currentTimestamp.replace(key, getKeyframesTimestamps(keyframes.get(key), time));
 
         if (!bone.hasDataForFrame(timestamp0, type) || !bone.hasDataForFrame(timestamp1, type))
-            return new Vector3f();
+            return new Vec3f();
 
         float startTime = timestamp0 * 20;
         float endTime = timestamp1 * 20 - startTime;
 
         float progressDelta = (float) Math.min((time - startTime) / endTime, 1.0);
 
-        Vector3f minPeriod = bone.getDataForFrame(timestamp0, type);
-        Vector3f maxPeriod = bone.getDataForFrame(timestamp1, type);
-        Vector3f previous = prevTransform.get(key);
+        Vec3f minPeriod = bone.getDataForFrame(timestamp0, type);
+        Vec3f maxPeriod = bone.getDataForFrame(timestamp1, type);
+        Vec3f previous = prevTransform.get(key);
 
-        Vector3f target, transform;
+        Vec3f target, transform;
 
         if (type == Transformation.ROTATION) {
-            transform = new Vector3f(
+            transform = new Vec3f(
                     MathHelper.lerpAngleDegrees(progressDelta, minPeriod.getX(), maxPeriod.getX()),
                     MathHelper.lerpAngleDegrees(progressDelta, minPeriod.getY(), maxPeriod.getY()),
                     MathHelper.lerpAngleDegrees(progressDelta, minPeriod.getZ(), maxPeriod.getZ()));
-            target = new Vector3f(
+            target = new Vec3f(
                     MathHelper.lerpAngleDegrees(tickDelta, previous.getX(), transform.getX()),
                     MathHelper.lerpAngleDegrees(tickDelta, previous.getY(), transform.getY()),
                     MathHelper.lerpAngleDegrees(tickDelta, previous.getZ(), transform.getZ()));
         } else {
-            transform = new Vector3f(
+            transform = new Vec3f(
                     MathHelper.lerp(progressDelta, minPeriod.getX(), maxPeriod.getX()),
                     MathHelper.lerp(progressDelta, minPeriod.getY(), maxPeriod.getY()),
                     MathHelper.lerp(progressDelta, minPeriod.getZ(), maxPeriod.getZ()));
-            target = new Vector3f(
+            target = new Vec3f(
                     MathHelper.lerp(tickDelta, previous.getX(), transform.getX()),
                     MathHelper.lerp(tickDelta, previous.getY(), transform.getY()),
                     MathHelper.lerp(tickDelta, previous.getZ(), transform.getZ()));
@@ -124,14 +124,14 @@ public class AnimationContext {
     }
 
     private void setStartData(String id, AnimationBone b, Transformation type, boolean full) {
-        Tuple<String, Transformation> key = new Tuple<>(id, type);
+        Pair<String, Transformation> key = new Pair<>(id, type);
         if (full) {
             List<Float> values = Lists.newArrayList(b.positionData.keySet());
             values.sort(Double::compare);
             keyframes.put(key, values);
         }
         currentTimestamp.put(key, getKeyframesTimestamps(keyframes.get(key), 0));
-        prevTransform.put(key, b.hasDataForFrame(0.0F, type) ? b.getDataForFrame(0.0F, type) : new Vector3f(0, 0, 0));
+        prevTransform.put(key, b.hasDataForFrame(0.0F, type) ? b.getDataForFrame(0.0F, type) : new Vec3f(0, 0, 0));
     }
 
     private void populateStartData(boolean full) {

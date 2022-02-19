@@ -7,12 +7,8 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.PlayerModelPart;
+import net.minecraft.client.render.entity.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,12 +17,13 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 
 public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M extends EntityGeometryModel<T>> extends EntityRenderer<T> {
 
     private final M model;
 
-    protected GeometryLivingEntityRenderer(EntityRenderDispatcher dispatcher, M model, float shadowRadius) {
+    protected GeometryLivingEntityRenderer(EntityRendererFactory.Context dispatcher, M model, float shadowRadius) {
         super(dispatcher);
         this.model = model;
         this.shadowRadius = shadowRadius;
@@ -66,7 +63,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
 
         float bodyYaw = MathHelper.lerp(tickDelta, entity.prevBodyYaw, entity.bodyYaw);
         float headYaw = MathHelper.lerp(tickDelta, entity.prevHeadYaw, entity.headYaw);
-        float pitch = MathHelper.lerp(tickDelta, entity.prevPitch, entity.pitch);
+        float pitch = MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch());
         float yawProgress = headYaw - bodyYaw;
 
         if (entity.hasVehicle() && entity.getVehicle() instanceof LivingEntity) {
@@ -135,7 +132,7 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
     protected void setupTransforms(T entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta) {
         EntityPose entityPose = entity.getPose();
         if (entityPose != EntityPose.SLEEPING) {
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F - bodyYaw));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F - bodyYaw));
         }
 
         if (entity.deathTime > 0) {
@@ -145,21 +142,21 @@ public abstract class GeometryLivingEntityRenderer<T extends LivingEntity, M ext
                 f = 1.0F;
             }
 
-            matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(f * this.getLyingAngle(entity)));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(f * this.getLyingAngle(entity)));
         } else if (entity.isUsingRiptide()) {
-            matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90.0F - entity.pitch));
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(((float) entity.age + tickDelta) * -75.0F));
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90.0F - entity.getPitch()));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(((float) entity.age + tickDelta) * -75.0F));
         } else if (entityPose == EntityPose.SLEEPING) {
             Direction direction = entity.getSleepingDirection();
             float g = direction != null ? getYaw(direction) : bodyYaw;
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(g));
-            matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(this.getLyingAngle(entity)));
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(270.0F));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(g));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(this.getLyingAngle(entity)));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(270.0F));
         } else if (entity.hasCustomName() || entity instanceof PlayerEntity) {
             String string = Formatting.strip(entity.getName().getString());
             if (("Dinnerbone".equals(string) || "Grumm".equals(string)) && (!(entity instanceof PlayerEntity) || ((PlayerEntity) entity).isPartVisible(PlayerModelPart.CAPE))) {
                 matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
-                matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
+                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
             }
         }
 

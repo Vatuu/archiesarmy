@@ -16,8 +16,7 @@ public class PacketC2SLoopAnimation implements AbstractPacket {
     private Identifier id;
     private int newAge;
 
-    public PacketC2SLoopAnimation() {
-    }
+    public PacketC2SLoopAnimation() { }
 
     public PacketC2SLoopAnimation(Entity targetEntity, Identifier id, int newAge) {
         this.targetEntity = targetEntity;
@@ -32,7 +31,7 @@ public class PacketC2SLoopAnimation implements AbstractPacket {
 
     @Override
     public void encode(PacketByteBuf buffer) {
-        buffer.writeVarInt(targetEntity.getEntityId());
+        buffer.writeVarInt(targetEntity.getId());
         buffer.writeIdentifier(id);
         buffer.writeVarInt(newAge);
     }

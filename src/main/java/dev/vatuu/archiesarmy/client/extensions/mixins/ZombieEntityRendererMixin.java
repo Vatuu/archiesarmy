@@ -6,6 +6,7 @@ import dev.vatuu.archiesarmy.client.features.EnchantmentEffectFeatureRenderer;
 import dev.vatuu.archiesarmy.client.features.EnchantmentGlowFeatureRenderer;
 import dev.vatuu.archiesarmy.extensions.LivingEntityExt;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ZombieBaseEntityRenderer;
 import net.minecraft.client.render.entity.ZombieEntityRenderer;
 import net.minecraft.client.render.entity.model.ZombieEntityModel;
@@ -23,14 +24,14 @@ public abstract class ZombieEntityRendererMixin extends ZombieBaseEntityRenderer
     private static final Identifier ENCHANTED_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/zombie.png");
     private static final Identifier EMISSIVE_TEXTURE = ArchiesArmy.id("textures/entities/enchanting/zombie_emissive.png");
 
-    protected ZombieEntityRendererMixin(EntityRenderDispatcher dispatcher, ZombieEntityModel<ZombieEntity> zombieEntityModel, ZombieEntityModel<ZombieEntity> zombieEntityModel2, ZombieEntityModel<ZombieEntity> zombieEntityModel3) {
+    protected ZombieEntityRendererMixin(EntityRendererFactory.Context dispatcher, ZombieEntityModel<ZombieEntity> zombieEntityModel, ZombieEntityModel<ZombieEntity> zombieEntityModel2, ZombieEntityModel<ZombieEntity> zombieEntityModel3) {
         super(dispatcher, zombieEntityModel, zombieEntityModel2, zombieEntityModel3);
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void addFeatureRenderer(CallbackInfo info) {
-        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, new ZombieEntityModel<>(0, false), this.getEmissiveTexture()));
-        this.addFeature(new EnchantmentEffectFeatureRenderer<>(this, new ZombieEntityModel<>(0F, false)));
+        this.addFeature(new EnchantmentGlowFeatureRenderer<>(this, this.model, this.getEmissiveTexture()));
+        this.addFeature(new EnchantmentEffectFeatureRenderer<>(this, this.model));
     }
 
     @Override

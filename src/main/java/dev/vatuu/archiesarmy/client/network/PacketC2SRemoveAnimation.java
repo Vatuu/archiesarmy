@@ -32,7 +32,7 @@ public class PacketC2SRemoveAnimation implements AbstractPacket {
 
     @Override
     public void encode(PacketByteBuf buffer) {
-        buffer.writeVarInt(targetEntity.getEntityId());
+        buffer.writeVarInt(targetEntity.getId());
         buffer.writeIdentifier(id);
         buffer.writeBoolean(all);
     }
